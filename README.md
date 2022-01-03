@@ -1,7 +1,7 @@
 # MacroDeck.SoundPad
 A SoundPad integration for Macro Deck
 
-<img alt="Soundboard Icon" height="128px" align="center" src="Resources/MacroDeckSoundPad.png"/>  <img alt="Works with Macro Deck 2" height="64px" align="center" href="https://macrodeck.org" src="https://macrodeck.org/images/works_with_macrodeck2.png"/>
+<img alt="Plugin Icon" height="128px" align="center" src="MacroDeck.SoundPad/MacroDeck.SoundPad/Resources/MacroDeckSoundPad.png"/>  <img alt="Works with Macro Deck 2" height="64px" align="center" href="https://macrodeck.org" src="https://macrodeck.org/images/works_with_macrodeck2.png"/>
 
 
 ***
@@ -22,7 +22,7 @@ More features/actions coming soon...
 This plugin has its own localization files, independent of Macro Deck.
 If your language is not available, the plugin will default to English.
 
-Check the files available in source under [Resources/Languages](Resources/Languages).
+Check the files available in source under [Languages](MacroDeck.SoundPad/MacroDeck.SoundPad/Languages).
 If your language is missing or incomplete, please consider [helping me out by translating at POEditor](https://poeditor.com/join/project?hash=88WWuE9v4H)! 
 
 Currently available languages:

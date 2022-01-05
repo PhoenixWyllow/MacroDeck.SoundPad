@@ -5,6 +5,6 @@
     "PluginDescription": "A SoundPad integration for Macro Deck",
     "Connected": "SoundPad Connected",
     "Disconnected": "SoundPad Disconnected",
-    "PlayStopActionName": "Play",
-    "PlayStopActionDescription": "Play audio"
+    "PlayActionName": "Play",
+    "PlayActionDescription": "Play audio"
 }

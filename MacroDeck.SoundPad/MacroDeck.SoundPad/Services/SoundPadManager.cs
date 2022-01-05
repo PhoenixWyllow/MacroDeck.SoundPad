@@ -24,22 +24,11 @@ namespace PW.MacroDeck.SoundPad.Services
                 AutoReconnect = true,
             };
 
-            Soundpad.StatusChanged += SoundpadOnStatusChanged;
+            Soundpad.StatusChanged += (_, __) => SoundPadPlugin.UpdateContentButton();
 
             // Note that the API is asynchronous. Make sure that Soundpad is connected before executing commands.
             Soundpad.ConnectAsync();
 
-        }
-
-        private static void SoundpadOnStatusChanged(object sender, EventArgs e)
-        {
-            if (PluginInstance.ContentButton != null)
-            {
-                PluginInstance.ContentButton.BackgroundImage = IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected;
-                
-                new System.Windows.Forms.ToolTip()
-                    .SetToolTip(PluginInstance.ContentButton, IsConnected ? LocalizationManager.Instance.Connected : LocalizationManager.Instance.Disconnected);
-            }
         }
 
         public static void Play(int index)

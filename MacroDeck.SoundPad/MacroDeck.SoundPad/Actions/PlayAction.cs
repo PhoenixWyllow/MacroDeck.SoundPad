@@ -9,9 +9,9 @@ namespace PW.MacroDeck.SoundPad.Actions
 {
     public class PlayAction : PluginAction
     {
-        public override string Name => LocalizationManager.Instance.PlayStopActionName;
+        public override string Name => LocalizationManager.Instance.PlayActionName;
 
-        public override string Description => LocalizationManager.Instance.PlayStopActionDescription;
+        public override string Description => LocalizationManager.Instance.PlayActionDescription;
 
         public override void Trigger(string clientId, ActionButton actionButton)
         {

@@ -8,8 +8,7 @@
         public string PluginDescription { get; set; } = "A SoundPad integration for Macro Deck";
         public string Connected { get; set; } = "SoundPad Connected";
         public string Disconnected { get; set; } = "SoundPad Disconnected";
-        public string SyncButtonState { get; set; } = "Sync button state";
-        public string PlayStopActionName { get; set; } = "Play or Stop";
-        public string PlayStopActionDescription { get; set; } = "Play or Stop a sound";
+        public string PlayActionName { get; set; } = "Play";
+        public string PlayActionDescription { get; set; } = "Play a sound";
     }
 }

@@ -21,10 +21,6 @@ namespace PW.MacroDeck.SoundPad
     {
         public override string Name => LocalizationManager.Instance.PluginName;
 
-        public override string Version => typeof(SoundPadPlugin).Assembly.GetName().Version.ToString();
-
-        public override string Author => "PhoenixWyllow (pw.dev@outlook.com)";
-
         public override string Description => LocalizationManager.Instance.PluginDescription;
 
         public override Image Icon => Properties.Resources.SoundPadPluginIcon;
@@ -53,19 +49,30 @@ namespace PW.MacroDeck.SoundPad
 
             SoundPadManager.Start();
         }
+
+        private static ToolTip contentButtonToolTip;
         private void MacroDeck_OnMainWindowLoad(object sender, EventArgs e)
         {
             if (sender != null &&
                 sender is SuchByte.MacroDeck.GUI.MainWindow mainWindow)
             {
-                PluginInstance.ContentButton = new ContentSelectorButton()
-                {
-                    BackgroundImage = SoundPadManager.IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected,
-                };
+                PluginInstance.ContentButton = new ContentSelectorButton();
+                contentButtonToolTip = new ToolTip();
+                UpdateContentButton();
 
                 mainWindow.contentButtonPanel.Controls.Add(PluginInstance.ContentButton);
             }
 
+        }
+
+        public static void UpdateContentButton()
+        {
+            if (PluginInstance.ContentButton != null)
+            {
+                PluginInstance.ContentButton.BackgroundImage = SoundPadManager.IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected;
+
+                contentButtonToolTip.SetToolTip(PluginInstance.ContentButton, SoundPadManager.IsConnected ? LocalizationManager.Instance.Connected : LocalizationManager.Instance.Disconnected);
+            }
         }
     }
 }

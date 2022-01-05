@@ -14,8 +14,11 @@ A SoundPad integration for Macro Deck
 
 | Action | Description | Function |
 | --- | --- | --- |
+| Play | Simple play action | A simple fire-and-forget play action. Pressing this action again will restart the audio from the beginning. | 
 
 More features/actions coming soon...
+
+Please note: this plugin is currently in beta. Please report bugs and request features. 
 
 ***
 ## Need this in your language?
@@ -34,3 +37,6 @@ Currently available languages:
 This plugin makes use of:
 - [Macro Deck 2 by SuchByte (Apache License 2.0)](https://macrodeck.org)
 - [SoundpadConnector by Nikodem Jaworski (MIT)](https://github.com/medokin/soundpad-connector)
+
+### Special thanks
+* [Leppsoft](https://leppsoft.com/soundpad/) - The company behind Soundpad

@@ -21,7 +21,7 @@
 		<Description>A SoundPad integration for Macro Deck</Description>
 		<AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionRevision)</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
-		<Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)</Version>
+		<Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)-beta</Version>
 		<AssemblyName>SoundPadPlugin</AssemblyName>
 	</PropertyGroup>
 

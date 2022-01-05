@@ -7,6 +7,7 @@ using System;
 using SuchByte.MacroDeck.GUI.CustomControls;
 using System.Diagnostics;
 using System.Windows.Forms;
+using PW.MacroDeck.SoundPad.Actions;
 
 namespace PW.MacroDeck.SoundPad
 {
@@ -18,64 +19,52 @@ namespace PW.MacroDeck.SoundPad
 
     public class SoundPadPlugin : MacroDeckPlugin
     {
-        /// <summary>
-        /// Short description what the plugin can do
-        /// </summary>
+        public override string Name => LocalizationManager.Instance.PluginName;
+
+        public override string Version => typeof(SoundPadPlugin).Assembly.GetName().Version.ToString();
+
+        public override string Author => "PhoenixWyllow (pw.dev@outlook.com)";
+
         public override string Description => LocalizationManager.Instance.PluginDescription;
 
-        /// <summary>
-        /// Icon for the plugin
-        /// </summary>
-        public override Image Icon => Properties.Resources.MacroDeckSoundPad;
+        public override Image Icon => Properties.Resources.SoundPadPluginIcon;
 
-        /// <summary>
-        /// Can the plugin be configured? E.g. accounts
-        /// </summary>
         public override bool CanConfigure => false;
 
-        /// <summary>
-        /// Gets called when Macro Deck enables the plugin
-        /// </summary>
         public override void Enable()
         {
             Actions = new List<PluginAction>
             {
+                new PlayAction(),
             };
         }
 
-        /// <summary>
-        /// Gets called when the user wants to configure the plugin
-        /// </summary>
         public override void OpenConfigurator()
         {
         }
 
         public SoundPadPlugin()
         {
-            LocalizationManager.CreateInstance();
-            SoundPadManager.Start();
-
             PluginInstance.Plugin ??= this;
 
+            LocalizationManager.CreateInstance();
+
             SuchByte.MacroDeck.MacroDeck.OnMainWindowLoad += MacroDeck_OnMainWindowLoad;
+
+            SoundPadManager.Start();
         }
         private void MacroDeck_OnMainWindowLoad(object sender, EventArgs e)
         {
             if (sender != null &&
                 sender is SuchByte.MacroDeck.GUI.MainWindow mainWindow)
             {
-                var statusButton = PluginInstance.ContentButton = new ContentSelectorButton();
-                statusButton.BackgroundImage = Properties.Resources.SoundPadDisconnected;
-                mainWindow.contentButtonPanel.Controls.Add(statusButton);
+                PluginInstance.ContentButton = new ContentSelectorButton()
+                {
+                    BackgroundImage = SoundPadManager.IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected,
+                };
+
+                mainWindow.contentButtonPanel.Controls.Add(PluginInstance.ContentButton);
             }
-#if DEBUG
-            else
-            {
-                System.IO.File.WriteAllText(
-                    System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "SoundpadDebug.txt"), 
-                    $"Sender:{sender is null}, {sender?.GetType()}");
-            }
-#endif
 
         }
     }

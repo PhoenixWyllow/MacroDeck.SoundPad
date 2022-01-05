@@ -1,7 +1,13 @@
 ﻿using SoundpadConnector;
+using SoundpadConnector.Response;
+using SoundpadConnector.XML;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PW.MacroDeck.SoundPad.Services
 {
@@ -23,13 +29,25 @@ namespace PW.MacroDeck.SoundPad.Services
             // Note that the API is asynchronous. Make sure that Soundpad is connected before executing commands.
             Soundpad.ConnectAsync();
 
-            Console.ReadLine();
-
         }
 
         private static void SoundpadOnStatusChanged(object sender, EventArgs e)
         {
-            PluginInstance.ContentButton.BackgroundImage = IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected;
+            if (PluginInstance.ContentButton != null)
+            {
+                PluginInstance.ContentButton.BackgroundImage = IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected;
+                
+                new System.Windows.Forms.ToolTip()
+                    .SetToolTip(PluginInstance.ContentButton, IsConnected ? LocalizationManager.Instance.Connected : LocalizationManager.Instance.Disconnected);
+            }
+        }
+
+        public static void Play(int index)
+        {
+            if (IsConnected)
+            {
+                Soundpad.PlaySound(index);
+            }
         }
     }
 }

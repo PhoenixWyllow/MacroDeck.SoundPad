@@ -10,9 +10,11 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<RootNamespace>PW.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		<PackageLicenseFile>E:\Code\source\repos\PhoenixWyllow\MacroDeck.SoundPad\LICENSE</PackageLicenseFile>
+		<PackageLicenseFile>..\..\LICENSE</PackageLicenseFile>
 		<RepositoryUrl>https://github.com/PhoenixWyllow/MacroDeck.SoundPad</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/PhoenixWyllow/MacroDeck.SoundPad/releases</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Authors>PhoenixWyllow (pw.dev@outlook.com)</Authors>
 		<Copyright>PhoenixWyllow (pw.dev@outlook.com)</Copyright>
@@ -20,6 +22,7 @@
 		<AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionRevision)</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
 		<Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)</Version>
+		<AssemblyName>SoundPadPlugin</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -56,10 +59,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Actions\" />
 		<Folder Include="Models\" />
 		<Folder Include="Languages\" />
-		<Folder Include="Resources\" />
 		<Folder Include="Views\" />
 		<Folder Include="ViewModels\" />
 	</ItemGroup>
@@ -80,11 +81,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PluginFiles Include="$(OutDir)\$(TargetFileName);$(OutDir)\Plugin.xml" />
+		<PluginFiles Include="$(OutDir)\$(TargetFileName);$(OutDir)\SoundpadConnector.dll;$(OutDir)\Plugin.xml" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)' == 'Debug'">
-		<Copy DestinationFolder="$(AppData)\Macro Deck\plugins\PhoenixWyllow.$(TargetName)\" SourceFiles="@(PluginFiles)"/>
+		<Copy DestinationFolder="$(AppData)\Macro Deck\plugins\PhoenixWyllow.$(TargetName)\" SourceFiles="@(PluginFiles)" />
 	</Target>
 
 	<Target Name="PostBuildZipRelease" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)' == 'Release'">

@@ -1,9 +1,8 @@
 {
-  "Attribution": "PhoenixWyllow",
-  "Language": "English",
-  "PluginName": "SoundPad plugin",
-  "PluginDescription": "A SoundPad integration for Macro Deck",
-  "Connected": "SoundPad Connected",
-  "Disconnectd": "SoundPad Disconnected",
-  "SyncButtonState": "Sync button state"
+    "Attribution": "PhoenixWyllow",
+    "Language": "English",
+    "PluginName": "SoundPad plugin",
+    "PluginDescription": "A SoundPad integration for Macro Deck",
+    "Connected": "SoundPad Connected",
+    "Disconnected": "SoundPad Disconnected"
 }

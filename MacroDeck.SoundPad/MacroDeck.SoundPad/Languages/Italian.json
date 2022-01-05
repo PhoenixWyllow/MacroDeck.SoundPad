@@ -4,5 +4,7 @@
     "PluginName": "Soundpad plugin",
     "PluginDescription": "Intergrazione di Soundpad per Macro Deck",
     "Connected": "Soundpad connesso",
-    "Disconnected": "Soundpad non connesso"
+    "Disconnected": "Soundpad non connesso",
+    "PlayStopActionName": "Riproduci",
+    "PlayStopActionDescription": "Riproduci audio"
 }

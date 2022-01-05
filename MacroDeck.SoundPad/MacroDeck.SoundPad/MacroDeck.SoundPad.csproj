@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<VersionMajor>0</VersionMajor>
+		<VersionMinor>1</VersionMinor>
+		<VersionPatch>0</VersionPatch>
+		<VersionRevision Condition="'$(VersionRevision)' == ''">$([System.DateTime]::UtcNow.Year.ToString())$([System.DateTime]::UtcNow.DayOfYear.ToString()).$([System.DateTime]::UtcNow.ToString("Hmm"))</VersionRevision>
+	</PropertyGroup>
+	
+	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<RootNamespace>PW.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
@@ -10,6 +17,9 @@
 		<Authors>PhoenixWyllow (pw.dev@outlook.com)</Authors>
 		<Copyright>PhoenixWyllow (pw.dev@outlook.com)</Copyright>
 		<Description>A SoundPad integration for Macro Deck</Description>
+		<AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionRevision)</AssemblyVersion>
+		<FileVersion>$(AssemblyVersion)</FileVersion>
+		<Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -18,6 +28,13 @@
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\Plugin.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\Languages\*.json" />
@@ -43,7 +60,6 @@
 		<Folder Include="Models\" />
 		<Folder Include="Languages\" />
 		<Folder Include="Resources\" />
-		<Folder Include="Services\" />
 		<Folder Include="Views\" />
 		<Folder Include="ViewModels\" />
 	</ItemGroup>
@@ -58,14 +74,22 @@
 			<HintPath>C:\Program Files\Macro Deck\Macro Deck 2.dll</HintPath>
 		</Reference>
 	</ItemGroup>
+	
+	<ItemGroup>
+	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="(robocopy $(OutDir) &quot;%25AppData%25\Macro Deck\plugins\PhoenixWyllow.$(TargetName)\ &quot; $(TargetFileName) Plugin.xml /im)  ^&amp; IF %25ERRORLEVEL%25 LSS 8 SET ERRORLEVEL = 0" />
+	<ItemGroup>
+		<PluginFiles Include="$(OutDir)\$(TargetFileName);$(OutDir)\Plugin.xml" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)' == 'Debug'">
+		<Copy DestinationFolder="$(AppData)\Macro Deck\plugins\PhoenixWyllow.$(TargetName)\" SourceFiles="@(PluginFiles)"/>
 	</Target>
 
 	<Target Name="PostBuildZipRelease" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)' == 'Release'">
-		<Exec Command="(robocopy $(OutDir) &quot;$(SolutionDir)releases\temp\ &quot; $(TargetFileName) Plugin.xml /im)  ^&amp; IF %25ERRORLEVEL%25 LSS 8 SET ERRORLEVEL = 0" />
-		<ZipDirectory SourceDirectory="$((SolutionDir)releases\temp\" DestinationFile="$(SolutionDir)releases\$(TargetName)_$(AssemblyVersion).zip" Overwrite="true" />
+		<Copy DestinationFolder="$(SolutionDir)releases\temp\" SourceFiles="@(PluginFiles)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
+		<ZipDirectory SourceDirectory="$(SolutionDir)releases\temp\" DestinationFile="$(SolutionDir)releases\$(TargetName)_$(AssemblyVersion).zip" Overwrite="true" />
 		<RemoveDir Directories="$(SolutionDir)releases\temp\" />
 	</Target>
 	

@@ -1,6 +1,8 @@
 {
     "Attribution": "PhoenixWyllow",
     "Language": "Italiano",
-    "Soundboard4MacroDeckDescription": "Un'integrazione a SoundPad per Macro Deck",
-    "SyncButtonState": "Sincronizza lo stato del pulsante"
+    "PluginName": "Soundpad plugin",
+    "PluginDescription": "Intergrazione di Soundpad per Macro Deck",
+    "Connected": "Soundpad connesso",
+    "Disconnected": "Soundpad non connesso"
 }

@@ -1,4 +1,5 @@
-﻿using SoundpadConnector;
+﻿using PW.MacroDeck.SoundPad.Models;
+using SoundpadConnector;
 using SoundpadConnector.Response;
 using SoundpadConnector.XML;
 using System;
@@ -31,10 +32,11 @@ namespace PW.MacroDeck.SoundPad.Services
 
         }
 
-        public static void Play(int index)
+        public static void Play(string config)
         {
             if (IsConnected)
             {
+                int index = PlayActionConfigModel.Deserialize(config).AudioIndex;
                 Soundpad.PlaySound(index);
             }
         }

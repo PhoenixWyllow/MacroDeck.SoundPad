@@ -1,5 +1,7 @@
 ﻿using PW.MacroDeck.SoundPad.Services;
 using SuchByte.MacroDeck.ActionButton;
+using SuchByte.MacroDeck.GUI;
+using SuchByte.MacroDeck.GUI.CustomControls;
 using SuchByte.MacroDeck.Plugins;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,16 @@ namespace PW.MacroDeck.SoundPad.Actions
 
         public override string Description => LocalizationManager.Instance.PlayActionDescription;
 
+        public override bool CanConfigure => true;
+
+        public override ActionConfigControl GetActionConfigControl(ActionConfigurator actionConfigurator)
+        {
+            return new Views.PlayActionConfigView(this);
+        }
+
         public override void Trigger(string clientId, ActionButton actionButton)
         {
-            SoundPadManager.Play(1);
+            SoundPadManager.Play(Configuration);
         }
     }
 }

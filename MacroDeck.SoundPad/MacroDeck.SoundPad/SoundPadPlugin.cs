@@ -29,6 +29,8 @@ namespace PW.MacroDeck.SoundPad
 
         public override void Enable()
         {
+            SoundPadManager.Start();
+
             Actions = new List<PluginAction>
             {
                 new PlayAction(),
@@ -46,8 +48,6 @@ namespace PW.MacroDeck.SoundPad
             LocalizationManager.CreateInstance();
 
             SuchByte.MacroDeck.MacroDeck.OnMainWindowLoad += MacroDeck_OnMainWindowLoad;
-
-            SoundPadManager.Start();
         }
 
         private static ToolTip contentButtonToolTip;

@@ -27,16 +27,8 @@ namespace PW.MacroDeck.SoundPad.Services
             }
         }
 
-        private LocalizationManager()
-        {
-            LanguageManager.LanguageChanged += (s, e) => GetLocalization();
-        }
+        private LocalizationManager() { }
 
-        private static void Unload()
-        {
-            LanguageManager.LanguageChanged -= (s, e) => GetLocalization();
-            Instance = null;
-        }
 
         private static void GetLocalization()
         {
@@ -45,7 +37,7 @@ namespace PW.MacroDeck.SoundPad.Services
                 string languageName = LanguageManager.GetLanguageName();
                 if (Instance != null)
                 {
-                    Unload();
+                    LanguageManager.LanguageChanged -= (s, e) => GetLocalization();
                 }
                 try
                 {
@@ -55,6 +47,10 @@ namespace PW.MacroDeck.SoundPad.Services
                 {
                     //fallback - should never occur if things are done properly
                     Instance = new Localization();
+                }
+                finally
+                {
+                    LanguageManager.LanguageChanged += (s, e) => GetLocalization();
                 }
             }
         }
@@ -67,8 +63,8 @@ namespace PW.MacroDeck.SoundPad.Services
             {
                 languageName = "English"; //This should always be present as default, otherwise the code goes to fallback implementation.
             }
-
-            string languageFileName = $"Soundboard4MacroDeck.Resources.Languages.{languageName}.json";
+            
+            string languageFileName = $"PW.MacroDeck.SoundPad.Languages.{languageName}.json";
 
             using var resourceStream = assembly.GetManifestResourceStream(languageFileName);
             using var streamReader = new StreamReader(resourceStream);

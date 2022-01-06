@@ -10,6 +10,6 @@
         public string Disconnected { get; set; } = "SoundPad Disconnected";
         public string PlayActionName { get; set; } = "Play";
         public string PlayActionDescription { get; set; } = "Play a sound";
-        public string PlayActionAudioIndex { get; internal set; }
+        public string PlayActionAudioIndex { get; internal set; } = "Audio index";
     }
 }

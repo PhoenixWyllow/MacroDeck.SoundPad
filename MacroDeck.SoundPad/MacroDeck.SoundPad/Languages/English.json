@@ -6,5 +6,6 @@
     "Connected": "SoundPad Connected",
     "Disconnected": "SoundPad Disconnected",
     "PlayActionName": "Play",
-    "PlayActionDescription": "Play audio"
+    "PlayActionDescription": "Play audio",
+    "PlayActionAudioIndex": "Audio index"
 }

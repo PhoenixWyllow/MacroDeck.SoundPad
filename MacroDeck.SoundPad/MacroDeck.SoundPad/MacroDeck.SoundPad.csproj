@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<VersionMajor>0</VersionMajor>
 		<VersionMinor>1</VersionMinor>
-		<VersionPatch>0</VersionPatch>
+		<VersionPatch>1</VersionPatch>
 		<VersionRevision Condition="'$(VersionRevision)' == ''">$([System.DateTime]::UtcNow.Year.ToString())$([System.DateTime]::UtcNow.DayOfYear.ToString()).$([System.DateTime]::UtcNow.ToString("Hmm"))</VersionRevision>
 	</PropertyGroup>
 	
@@ -76,7 +76,7 @@
 		<PluginFiles Include="$(OutDir)\$(TargetFileName);$(OutDir)\SoundpadConnector.dll;$(OutDir)\Plugin.xml" />
 	</ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)' == 'Debug'">
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Copy DestinationFolder="$(AppData)\Macro Deck\plugins\PhoenixWyllow.$(TargetName)\" SourceFiles="@(PluginFiles)" />
 	</Target>
 

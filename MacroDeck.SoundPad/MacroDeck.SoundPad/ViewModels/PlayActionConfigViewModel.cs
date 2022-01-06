@@ -42,7 +42,7 @@ namespace PW.MacroDeck.SoundPad.ViewModels
 
         public void SetConfig()
         {
-            _action.ConfigurationSummary = $"{_action.Name}: {Configuration.AudioIndex}";
+            _action.ConfigurationSummary = Configuration.AudioIndex.ToString();
             _action.Configuration = Configuration.Serialize();
         }
     }

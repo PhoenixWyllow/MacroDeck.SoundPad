@@ -7,7 +7,7 @@ namespace PW.MacroDeck.SoundPad.Models
 {
     public class PlayActionConfigModel : ISerializableConfiguration
     {
-        public int AudioIndex { get; set; }
+        public int AudioIndex { get; set; } = 1;
 
         public string Serialize()
         {

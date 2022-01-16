@@ -1,8 +1,7 @@
 {
     "Attribution": "PhoenixWyllow",
     "Language": "Italiano",
-    "PluginName": "Soundpad plugin",
-    "PluginDescription": "Intergrazione di Soundpad per Macro Deck",
+    "PluginDescription": "Integrazione di Soundpad per Macro Deck",
     "Connected": "Soundpad connesso",
     "Disconnected": "Soundpad non connesso",
     "PlayActionName": "Riproduci",

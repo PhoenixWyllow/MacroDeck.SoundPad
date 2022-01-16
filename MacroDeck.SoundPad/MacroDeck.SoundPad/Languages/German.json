@@ -1,7 +1,6 @@
 {
     "Attribution": "SuchByte",
     "Language": "German",
-    "PluginName": "SoundPad Plugin",
     "PluginDescription": "Eine SoundPad Integration für Macro Deck",
     "Connected": "SoundPad verbunden",
     "Disconnected": "SoundPad getrennt",

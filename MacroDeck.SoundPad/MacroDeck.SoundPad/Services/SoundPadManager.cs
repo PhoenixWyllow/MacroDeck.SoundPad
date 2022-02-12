@@ -36,7 +36,8 @@ namespace PW.MacroDeck.SoundPad.Services
         {
             if (IsConnected)
             {
-                int index = PlayActionConfigModel.Deserialize(config).AudioIndex;
+                var actionConfig = PlayActionConfigModel.Deserialize(config);
+                int index = actionConfig.Sound?.Index ?? actionConfig.AudioIndex;
                 Soundpad.PlaySound(index);
             }
         }

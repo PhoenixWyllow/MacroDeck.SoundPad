@@ -6,7 +6,7 @@
     "Disconnected": "SoundPad getrennt",
     "PlayActionName": "Wiedergeben",
     "PlayActionDescription": "Startet eine Audiowiedergabe",
-    "PlayActionCategory": "",
-    "PlayActionSoundTitle": "",
-    "PleaseConnect": ""
+    "PlayActionCategory": "Category",
+    "PlayActionSoundTitle": "Sound",
+    "PleaseConnect": "Please ensure Soundpad is open and connected, then try again."
 }

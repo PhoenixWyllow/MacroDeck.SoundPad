@@ -6,5 +6,7 @@
     "Disconnected": "Soundpad non connesso",
     "PlayActionName": "Riproduci",
     "PlayActionDescription": "Riproduci audio",
-    "PlayActionAudioIndex": "Indice audio"
+    "PlayActionCategory": "Categoria",
+    "PlayActionSoundTitle": "Audio",
+    "PleaseConnect": "Assicurati che Soundpad sia aperto e connesso, poi riprova."
 }

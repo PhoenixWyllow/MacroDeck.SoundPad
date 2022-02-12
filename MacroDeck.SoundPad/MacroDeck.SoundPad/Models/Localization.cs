@@ -9,6 +9,8 @@
         public string Disconnected { get; set; } = "SoundPad Disconnected";
         public string PlayActionName { get; set; } = "Play";
         public string PlayActionDescription { get; set; } = "Play a sound";
-        public string PlayActionAudioIndex { get; set; } = "Audio index";
+        public string PlayActionCategory { get; set; } = "Category";
+        public string PlayActionSoundTitle { get; set; } = "Sound title";
+        public string PleaseConnect { get; set; } = "Please ensure Soundpad is open and connected, then try again.";
     }
 }

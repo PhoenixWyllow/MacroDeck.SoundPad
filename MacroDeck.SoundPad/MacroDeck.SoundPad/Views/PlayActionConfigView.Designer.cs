@@ -28,55 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.audioIndexLabel = new System.Windows.Forms.Label();
-            this.audioIndex = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.audioIndex)).BeginInit();
+            this.labelCategory = new System.Windows.Forms.Label();
+            this.categoryNames = new System.Windows.Forms.ComboBox();
+            this.audioTitles = new System.Windows.Forms.ComboBox();
+            this.labelSoundTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // audioIndexLabel
+            // labelCategory
             // 
-            this.audioIndexLabel.AutoSize = true;
-            this.audioIndexLabel.Location = new System.Drawing.Point(62, 47);
-            this.audioIndexLabel.Name = "audioIndexLabel";
-            this.audioIndexLabel.Size = new System.Drawing.Size(108, 23);
-            this.audioIndexLabel.TabIndex = 0;
-            this.audioIndexLabel.Text = "Audio index";
-            this.audioIndexLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCategory.AutoSize = true;
+            this.labelCategory.Location = new System.Drawing.Point(62, 47);
+            this.labelCategory.Name = "labelCategory";
+            this.labelCategory.Size = new System.Drawing.Size(84, 23);
+            this.labelCategory.TabIndex = 0;
+            this.labelCategory.Text = "Category";
+            this.labelCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // audioIndex
+            // categoryNames
             // 
-            this.audioIndex.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.audioIndex.Location = new System.Drawing.Point(176, 45);
-            this.audioIndex.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.audioIndex.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.audioIndex.Name = "audioIndex";
-            this.audioIndex.Size = new System.Drawing.Size(68, 27);
-            this.audioIndex.TabIndex = 1;
-            this.audioIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.audioIndex.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.audioIndex.ValueChanged += new System.EventHandler(this.AudioIndex_ValueChanged);
+            this.categoryNames.FormattingEnabled = true;
+            this.categoryNames.Location = new System.Drawing.Point(205, 44);
+            this.categoryNames.Name = "categoryNames";
+            this.categoryNames.Size = new System.Drawing.Size(276, 31);
+            this.categoryNames.TabIndex = 2;
+            this.categoryNames.SelectedIndexChanged += new System.EventHandler(this.CategoryNames_SelectedIndexChanged);
+            // 
+            // audioTitles
+            // 
+            this.audioTitles.FormattingEnabled = true;
+            this.audioTitles.Location = new System.Drawing.Point(205, 81);
+            this.audioTitles.Name = "audioTitles";
+            this.audioTitles.Size = new System.Drawing.Size(276, 31);
+            this.audioTitles.TabIndex = 3;
+            this.audioTitles.SelectedIndexChanged += new System.EventHandler(this.AudioTitles_SelectedIndexChanged);
+            // 
+            // labelSoundTitle
+            // 
+            this.labelSoundTitle.AutoSize = true;
+            this.labelSoundTitle.Location = new System.Drawing.Point(62, 84);
+            this.labelSoundTitle.Name = "labelSoundTitle";
+            this.labelSoundTitle.Size = new System.Drawing.Size(105, 23);
+            this.labelSoundTitle.TabIndex = 5;
+            this.labelSoundTitle.Text = "Sound Title";
+            this.labelSoundTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PlayActionConfigView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.audioIndex);
-            this.Controls.Add(this.audioIndexLabel);
+            this.Controls.Add(this.labelSoundTitle);
+            this.Controls.Add(this.audioTitles);
+            this.Controls.Add(this.categoryNames);
+            this.Controls.Add(this.labelCategory);
             this.Name = "PlayActionConfigView";
             this.Load += new System.EventHandler(this.PlayActionConfigView_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.audioIndex)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -84,7 +89,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Label audioIndexLabel;
-        private System.Windows.Forms.NumericUpDown audioIndex;
+        private System.Windows.Forms.Label labelCategory;
+        private System.Windows.Forms.ComboBox categoryNames;
+        private System.Windows.Forms.ComboBox audioTitles;
+        private System.Windows.Forms.Label labelSoundTitle;
     }
 }

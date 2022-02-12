@@ -19,6 +19,10 @@ namespace PW.MacroDeck.SoundPad.Actions
 
         public override ActionConfigControl GetActionConfigControl(ActionConfigurator actionConfigurator)
         {
+            if (!SoundPadManager.IsConnected)
+            {
+                return new Views.NotConnectedConfigView();
+            }
             return new Views.PlayActionConfigView(this);
         }
 

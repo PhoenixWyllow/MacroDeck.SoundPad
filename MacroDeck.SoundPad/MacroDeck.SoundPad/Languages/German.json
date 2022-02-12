@@ -1,11 +1,12 @@
 {
     "Attribution": "SuchByte",
     "Language": "German",
-    "PluginName": "SoundPad Plugin",
     "PluginDescription": "Eine SoundPad Integration für Macro Deck",
     "Connected": "SoundPad verbunden",
     "Disconnected": "SoundPad getrennt",
     "PlayActionName": "Wiedergeben",
     "PlayActionDescription": "Startet eine Audiowiedergabe",
-    "PlayActionAudioIndex": "Audio Index"
+    "PlayActionCategory": "Category",
+    "PlayActionSoundTitle": "Sound",
+    "PleaseConnect": "Please ensure Soundpad is open and connected, then try again."
 }

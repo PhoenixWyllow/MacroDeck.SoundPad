@@ -1,11 +1,12 @@
 {
     "Attribution": "PhoenixWyllow",
     "Language": "English",
-    "PluginName": "SoundPad plugin",
     "PluginDescription": "A SoundPad integration for Macro Deck",
     "Connected": "SoundPad Connected",
     "Disconnected": "SoundPad Disconnected",
     "PlayActionName": "Play",
     "PlayActionDescription": "Play audio",
-    "PlayActionAudioIndex": "Audio index"
+    "PlayActionCategory": "Category",
+    "PlayActionSoundTitle": "Sound",
+    "PleaseConnect": "Please ensure Soundpad is open and connected, then try again."
 }

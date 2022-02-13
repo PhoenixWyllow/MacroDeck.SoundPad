@@ -34,6 +34,7 @@ namespace PW.MacroDeck.SoundPad
             Actions = new List<PluginAction>
             {
                 new PlayAction(),
+                new StopPlaybackAction(),
             };
         }
 

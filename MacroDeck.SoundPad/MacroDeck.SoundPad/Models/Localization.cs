@@ -12,5 +12,9 @@
         public string PlayActionCategory { get; set; } = "Category";
         public string PlayActionSoundTitle { get; set; } = "Sound title";
         public string PleaseConnect { get; set; } = "Please ensure Soundpad is open and connected, then try again.";
+        public string StopPlaybackActionName { get; set; } = "Stop audio";
+        public string StopPlaybackActionDescription { get; set; } = "Stops Soundpad audio playback";
+        public string StopRecordingActionName { get; set; } = "Stop recording";
+        public string StopRecordingActionDescription { get; set; } = "Stops Soundpad recording";
     }
 }

@@ -18,12 +18,6 @@ namespace PW.MacroDeck.SoundPad.ViewModels
 
         public PlayActionConfigModel Configuration { get; set; }
 
-        private int AudioIndex 
-        {
-            get => Configuration.AudioIndex;
-            set => Configuration.AudioIndex = value;
-        }
-
         public SoundpadSound Sound
         {
             get => Configuration.Sound;
@@ -45,6 +39,7 @@ namespace PW.MacroDeck.SoundPad.ViewModels
             Configuration = PlayActionConfigModel.Deserialize(action.Configuration);
             _action = action;
         }
+
         public void SaveConfig()
         {
             try
@@ -69,37 +64,37 @@ namespace PW.MacroDeck.SoundPad.ViewModels
         {
             if (!string.IsNullOrEmpty(audioTitle))
             {
-                Sound = Sounds.First(s => s.Title.Equals(audioTitle));
+                Sound = Sounds.FirstOrDefault(s => s.Title.Equals(audioTitle));
             }
 
             if (Sound != null && !Sounds.Any(s => s.Equals(Sound)))
             {
-                Sound = Sounds.First(s => s.Title.Equals(Sound.Title)) ?? Sounds.First(s => s.Index.Equals(Sound.Index));
+                Sound = Sounds.FirstOrDefault(s => s.Title.Equals(Sound.Title)) ?? Sounds.FirstOrDefault(s => s.Index.Equals(Sound.Index));
             }
             
-            if (Sound == null && AudioIndex > 0)
+            if (Sound == null && Configuration.AudioIndex > 0)
             {
-                Sound = Sounds.First(s => s.Index.Equals(AudioIndex));
+                Sound = Sounds.FirstOrDefault(s => s.Index.Equals(Configuration.AudioIndex));
             }
 
-            AudioIndex = Sound.Index;
+            Configuration.AudioIndex = Sound.Index;
         }
 
         public void ChangeCategory(string categoryName = default)
         {
             if (!string.IsNullOrEmpty(categoryName))
             {
-                Category = Categories.First(c => c.Name.Equals(categoryName));
+                Category = Categories.FirstOrDefault(c => c.Name.Equals(categoryName));
             }
 
             if (Category != null && !Categories.Any(c => c.Equals(Category)))
             {
-                Category = Categories.First(c => c.Name.Equals(Category.Name)) ?? Categories.First(c => c.Index.Equals(Category.Index));
+                Category = Categories.FirstOrDefault(c => c.Name.Equals(Category.Name)) ?? Categories.FirstOrDefault(c => c.Index.Equals(Category.Index));
             }
             //separate condition in case changed to null (ie. category changed in Name and Index)
             if (Category == null)
             {
-                Category = Categories.First(c => c.Type == 1);
+                Category = Categories.FirstOrDefault(c => c.Type == 1);
             }
         }
 

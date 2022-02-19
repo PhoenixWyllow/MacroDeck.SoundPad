@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<VersionMajor>0</VersionMajor>
 		<VersionMinor>2</VersionMinor>
-		<VersionPatch>0</VersionPatch>
+		<VersionPatch>2</VersionPatch>
 		<VersionRevision Condition="'$(VersionRevision)' == ''">$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("000")).$([System.DateTime]::UtcNow.ToString("HHmm"))</VersionRevision>
 	</PropertyGroup>
 	
@@ -64,6 +64,9 @@
 			<DependentUpon>Resources.resx</DependentUpon>
 		</Compile>
 		<Compile Update="Views\NotConnectedConfigView.cs">
+		  <SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Views\RecordActionConfigView.cs">
 		  <SubType>UserControl</SubType>
 		</Compile>
 	</ItemGroup>

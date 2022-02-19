@@ -7,6 +7,7 @@ using System;
 using SuchByte.MacroDeck.GUI.CustomControls;
 using System.Windows.Forms;
 using PW.MacroDeck.SoundPad.Actions;
+using SuchByte.MacroDeck.Variables;
 
 namespace PW.MacroDeck.SoundPad
 {
@@ -34,6 +35,9 @@ namespace PW.MacroDeck.SoundPad
             Actions = new List<PluginAction>
             {
                 new PlayAction(),
+                new StopPlaybackAction(),
+                new StartRecordingAction(),
+                new StopRecordingAction(),
             };
         }
 

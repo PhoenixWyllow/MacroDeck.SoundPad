@@ -1,7 +1,7 @@
 # MacroDeck.SoundPad
-A SoundPad integration for Macro Deck
+A SoundPad plugin for Macro Deck
 
-<img alt="Plugin Icon" height="128px" align="center" src="MacroDeck.SoundPad/MacroDeck.SoundPad/Resources/MacroDeckSoundPad.png"/>  <img alt="Works with Macro Deck 2" height="64px" align="center" href="https://macrodeck.org" src="https://macrodeck.org/images/works_with_macrodeck2.png"/>
+<img alt="Plugin Icon" height="128px" align="center" src="MacroDeck.SoundPad/MacroDeck.SoundPad/Resources/MacroDeckSoundPad.png"/>  <img alt="Macro Deck 2 Community Plugin" height="69px" align="center" href="https://macrodeck.org" src="https://macrodeck.org/images/macro_deck_2_community_plugin.png"/>
 
 
 ***
@@ -15,6 +15,9 @@ A SoundPad integration for Macro Deck
 | Action | Description | Function |
 | --- | --- | --- |
 | Play | Simple play action | A simple fire-and-forget play action. Pressing this action again will restart the audio from the beginning. | 
+| Stop | Stop playback | This will stop playback of whatever Soundpad is playing. | 
+| Start Recording | Start recording from either mic or speakers | Begin recording from selected device. Actual device is selected in Soundpad preferences. | 
+| Stop Recording | Stop recording | Stop recording. If you want this as a Release action after recording, you will need to create a user variable. | 
 
 More features/actions coming soon...
 
@@ -31,6 +34,7 @@ If your language is missing or incomplete, please consider [helping me out by tr
 Currently available languages:
 - English
 - Italian
+- German (thanks to @SuchByte)
 
 ***
 ## Third party licenses

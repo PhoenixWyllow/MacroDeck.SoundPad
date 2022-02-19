@@ -1,5 +1,5 @@
 # MacroDeck.SoundPad
-A SoundPad integration for Macro Deck
+A SoundPad plugin for Macro Deck
 
 <img alt="Plugin Icon" height="128px" align="center" src="MacroDeck.SoundPad/MacroDeck.SoundPad/Resources/MacroDeckSoundPad.png"/>  <img alt="Macro Deck 2 Community Plugin" height="69px" align="center" href="https://macrodeck.org" src="https://macrodeck.org/images/macro_deck_2_community_plugin.png"/>
 

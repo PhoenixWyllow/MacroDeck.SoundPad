@@ -8,5 +8,14 @@
     "PlayActionDescription": "Riproduci audio",
     "PlayActionCategory": "Categoria",
     "PlayActionSoundTitle": "Audio",
-    "PleaseConnect": "Assicurati che Soundpad sia aperto e connesso, poi riprova."
+    "PleaseConnect": "Assicurati che Soundpad sia aperto e connesso, poi riprova.",
+    "StopPlaybackActionName": "Ferma audio",
+    "StopPlaybackActionDescription": "Ferma la riproduzione da Soundpad",
+    "StartRecordingActionName": "Avvia registrazione",
+    "StartRecordingActionDescription": "Avvia la registrazione dal dispositivo selezionato. Il dispositivo è configurato nelle preferenze di Soundpad.",
+    "RecordingDeviceSelection": "Dispositivo",
+    "RecordingDeviceMicrophone": "Microfono",
+    "RecordingDeviceSpeakers": "Altoparlanti",
+    "StopRecordingActionName": "Ferma registrazione",
+    "StopRecordingActionDescription": "Ferma la registrazione di Soundpad"
 }

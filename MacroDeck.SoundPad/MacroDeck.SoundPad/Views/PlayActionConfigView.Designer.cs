@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.labelCategory = new System.Windows.Forms.Label();
-            this.categoryNames = new System.Windows.Forms.ComboBox();
-            this.audioTitles = new System.Windows.Forms.ComboBox();
+            this.categoryNames = new SuchByte.MacroDeck.GUI.CustomControls.RoundedComboBox();
+            this.audioTitles = new SuchByte.MacroDeck.GUI.CustomControls.RoundedComboBox();
             this.labelSoundTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -46,16 +46,14 @@
             // 
             // categoryNames
             // 
-            this.categoryNames.FormattingEnabled = true;
             this.categoryNames.Location = new System.Drawing.Point(205, 44);
             this.categoryNames.Name = "categoryNames";
             this.categoryNames.Size = new System.Drawing.Size(276, 31);
-            this.categoryNames.TabIndex = 2;
+            this.categoryNames.TabIndex = 1;
             this.categoryNames.SelectedIndexChanged += new System.EventHandler(this.CategoryNames_SelectedIndexChanged);
             // 
             // audioTitles
             // 
-            this.audioTitles.FormattingEnabled = true;
             this.audioTitles.Location = new System.Drawing.Point(205, 81);
             this.audioTitles.Name = "audioTitles";
             this.audioTitles.Size = new System.Drawing.Size(276, 31);
@@ -68,7 +66,7 @@
             this.labelSoundTitle.Location = new System.Drawing.Point(62, 84);
             this.labelSoundTitle.Name = "labelSoundTitle";
             this.labelSoundTitle.Size = new System.Drawing.Size(105, 23);
-            this.labelSoundTitle.TabIndex = 5;
+            this.labelSoundTitle.TabIndex = 2;
             this.labelSoundTitle.Text = "Sound Title";
             this.labelSoundTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -90,8 +88,8 @@
         #endregion
 
         private System.Windows.Forms.Label labelCategory;
-        private System.Windows.Forms.ComboBox categoryNames;
-        private System.Windows.Forms.ComboBox audioTitles;
+        private SuchByte.MacroDeck.GUI.CustomControls.RoundedComboBox categoryNames;
+        private SuchByte.MacroDeck.GUI.CustomControls.RoundedComboBox audioTitles;
         private System.Windows.Forms.Label labelSoundTitle;
     }
 }

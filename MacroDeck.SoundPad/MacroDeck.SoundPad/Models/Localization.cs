@@ -14,6 +14,11 @@
         public string PleaseConnect { get; set; } = "Please ensure Soundpad is open and connected, then try again.";
         public string StopPlaybackActionName { get; set; } = "Stop audio";
         public string StopPlaybackActionDescription { get; set; } = "Stops Soundpad audio playback";
+        public string StartRecordingActionName { get; set; } = "Start recording";
+        public string StartRecordingActionDescription { get; set; } = "Start recording from selected device. Device used is set in Soundpad preferences.";
+        public string RecordingDeviceSelection { get; set; } = "Recording device";
+        public string RecordingDeviceMicrophone { get; set; } = "Microphone";
+        public string RecordingDeviceSpeakers { get; set; } = "Speakers";
         public string StopRecordingActionName { get; set; } = "Stop recording";
         public string StopRecordingActionDescription { get; set; } = "Stops Soundpad recording";
     }

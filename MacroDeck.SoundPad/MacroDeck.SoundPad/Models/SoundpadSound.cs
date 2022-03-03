@@ -9,7 +9,7 @@ namespace PW.MacroDeck.SoundPad.Models
     public class SoundpadSound
     {
         public int Index { get; set; }
-        
+
         public string Title { get; set; }
 
         public SoundpadSound() { } //required for serialization in config model

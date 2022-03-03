@@ -9,11 +9,11 @@ namespace PW.MacroDeck.SoundPad.Models
     public class SoundpadCategory
     {
         public int Index { get; set; }
-        
+
         public string Name { get; set; }
 
         public int Type { get; set; }
-        
+
         public SoundpadCategory() { } //required for serialization in config model
 
         public SoundpadCategory(SoundpadConnector.XML.Category category)

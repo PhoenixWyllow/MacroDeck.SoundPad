@@ -22,7 +22,7 @@ namespace PW.MacroDeck.SoundPad.Services
         public static void Start()
         {
             Soundpad = new Soundpad()
-            { 
+            {
                 AutoReconnect = true,
             };
 

@@ -1,7 +1,7 @@
-﻿using PW.MacroDeck.SoundPad.Services;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using PW.MacroDeck.SoundPad.Services;
 
 namespace PW.MacroDeck.SoundPad.Models
 {

@@ -1,12 +1,11 @@
-﻿using SuchByte.MacroDeck.Plugins;
+﻿using PW.MacroDeck.SoundPad.Actions;
+using PW.MacroDeck.SoundPad.Services;
+using SuchByte.MacroDeck.GUI.CustomControls;
+using SuchByte.MacroDeck.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using PW.MacroDeck.SoundPad.Services;
-using PW.MacroDeck.SoundPad.Models;
-using System;
-using SuchByte.MacroDeck.GUI.CustomControls;
 using System.Windows.Forms;
-using PW.MacroDeck.SoundPad.Actions;
 using SuchByte.MacroDeck.Variables;
 
 namespace PW.MacroDeck.SoundPad
@@ -19,11 +18,6 @@ namespace PW.MacroDeck.SoundPad
 
     public class SoundPadPlugin : MacroDeckPlugin
     {
-        public override string Name => "SoundPad plugin";
-        public override string Description => LocalizationManager.Instance.PluginDescription;
-
-        public override Image Icon => Properties.Resources.SoundPadPluginIcon;
-
         public override bool CanConfigure => false;
 
         public override void Enable()

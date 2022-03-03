@@ -71,7 +71,7 @@ namespace PW.MacroDeck.SoundPad.ViewModels
             {
                 Sound = Sounds.FirstOrDefault(s => s.Title.Equals(Sound.Title)) ?? Sounds.FirstOrDefault(s => s.Index.Equals(Sound.Index));
             }
-            
+
             if (Sound == null && Configuration.AudioIndex > 0)
             {
                 Sound = Sounds.FirstOrDefault(s => s.Index.Equals(Configuration.AudioIndex));

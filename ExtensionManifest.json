@@ -1,0 +1,10 @@
+{
+  "type": "Plugin",
+  "name": "SoundPadPlugin",
+  "author": "PhoenixWyllow",
+  "repository": "https://github.com/PhoenixWyllow/Soundboard4MacroDeck2",
+  "packageId": "PhoenixWyllow.SoundPadPlugin",
+  "version": "0.2.4",
+  "target-plugin-api-version": 31,
+  "dll": "SoundPadPlugin.dll"
+}

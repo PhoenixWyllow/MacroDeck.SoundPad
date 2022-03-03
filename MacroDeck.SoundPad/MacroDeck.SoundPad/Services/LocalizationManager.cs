@@ -63,7 +63,7 @@ namespace PW.MacroDeck.SoundPad.Services
             {
                 languageName = "English"; //This should always be present as default, otherwise the code goes to fallback implementation.
             }
-            
+
             string languageFileName = $"PW.MacroDeck.SoundPad.Languages.{languageName}.json";
 
             using var resourceStream = assembly.GetManifestResourceStream(languageFileName);

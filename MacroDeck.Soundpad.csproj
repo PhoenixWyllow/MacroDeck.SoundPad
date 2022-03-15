@@ -80,7 +80,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PluginFiles Include="$(OutDir)\*.dll;$(OutDir)\ExtensionManifest.json" />
+		<PluginFiles Include="$(OutDir)\*.dll;$(OutDir)\ExtensionManifest.json;$(OutDir)\ExtensionIcon.png" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<VersionMajor>0</VersionMajor>
 		<VersionMinor>2</VersionMinor>
-		<VersionPatch>5</VersionPatch>
+		<VersionPatch>6</VersionPatch>
 		<VersionRevision Condition="'$(VersionRevision)' == ''">$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("000")).$([System.DateTime]::UtcNow.ToString("HHmm"))</VersionRevision>
 	</PropertyGroup>
 	
@@ -21,7 +21,7 @@
 		<Description>A SoundPad integration for Macro Deck</Description>
 		<AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionRevision)</AssemblyVersion>
 		<FileVersion>$(AssemblyVersion)</FileVersion>
-		<Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)-beta</Version>
+		<Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)</Version>
 		<AssemblyName>SoundPadPlugin</AssemblyName>
 	</PropertyGroup>
 

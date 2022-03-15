@@ -38,18 +38,18 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<None Include="..\..\README.md">
+		<None Include="README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="..\..\LICENSE">
+		<None Include="LICENSE">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="..\..\ExtensionManifest.json">
+		<None Include="ExtensionManifest.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Include="..\..\ExtensionIcon.png">
+		<None Include="ExtensionIcon.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PW.MacroDeck.SoundPad.Views
@@ -16,7 +17,7 @@ namespace PW.MacroDeck.SoundPad.Views
     public partial class PlayActionConfigView : ActionConfigControl
     {
         private readonly PlayActionConfigViewModel _viewModel;
-        private bool _isBusy;
+        private bool _isBusy = false;
         public PlayActionConfigView(PluginAction action)
         {
             _viewModel = new PlayActionConfigViewModel(action);
@@ -45,19 +46,34 @@ namespace PW.MacroDeck.SoundPad.Views
             categoryNames.Items.AddRange(_viewModel.Categories.Select(c => c.Name).ToArray());
             _viewModel.ChangeCategory();
             _isBusy = true;
-            categoryNames.SelectedItem = _viewModel.Category.Name; //calls CategoryNames_SelectedIndexChanged
+            if (_viewModel.Category != null)
+            {
+                categoryNames.SelectedItem = _viewModel.Category.Name; //calls CategoryNames_SelectedIndexChanged
+            }
+            else
+            {
+                await GetSoundListAsync();
+            }
             while (_isBusy) //Poll _isBusy until previous call is finished otherwise ChangeSound breaks due to null exception. 
             {
                 await System.Threading.Tasks.Task.Delay(25);
             }
             _viewModel.ChangeSound();
-            audioTitles.SelectedItem = _viewModel.Sound.Title; //calls AudioTitles_SelectedIndexChanged
+            if (_viewModel.Sound != null)
+            {
+                audioTitles.SelectedItem = _viewModel.Sound.Title; //calls AudioTitles_SelectedIndexChanged
+            }
         }
 
         private async void CategoryNames_SelectedIndexChanged(object sender, EventArgs e)
         {
             _viewModel.ChangeCategory((string)categoryNames.SelectedItem);
-            await _viewModel.FetchSoundListAsync((string)categoryNames.SelectedItem);
+            await GetSoundListAsync();
+        }
+
+        private async Task GetSoundListAsync()
+        {
+            await _viewModel.FetchSoundListAsync();
             audioTitles.Items.Clear();
             audioTitles.Items.AddRange(_viewModel.Sounds.Select(a => a.Title).ToArray());
             _isBusy = false;

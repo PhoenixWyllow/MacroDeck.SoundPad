@@ -30,9 +30,9 @@ namespace PW.MacroDeck.SoundPad.ViewModels
             set => Configuration.Category = value;
         }
 
-        public List<SoundpadCategory> Categories { get; set; }
+        public List<SoundpadCategory> Categories { get; set; } = new List<SoundpadCategory>();
 
-        public List<SoundpadSound> Sounds { get; set; }
+        public List<SoundpadSound> Sounds { get; set; } = new List<SoundpadSound>();
 
         public PlayActionConfigViewModel(PluginAction action)
         {
@@ -72,12 +72,15 @@ namespace PW.MacroDeck.SoundPad.ViewModels
                 Sound = Sounds.FirstOrDefault(s => s.Title.Equals(Sound.Title)) ?? Sounds.FirstOrDefault(s => s.Index.Equals(Sound.Index));
             }
 
-            if (Sound == null && Configuration.AudioIndex > 0)
+            if (Sound == null && Configuration.AudioIndex > -1)
             {
                 Sound = Sounds.FirstOrDefault(s => s.Index.Equals(Configuration.AudioIndex));
             }
 
-            Configuration.AudioIndex = Sound.Index;
+            if (Sound != null)
+            {
+                Configuration.AudioIndex = Sound.Index;
+            }
         }
 
         public void ChangeCategory(string categoryName = default)
@@ -100,16 +103,31 @@ namespace PW.MacroDeck.SoundPad.ViewModels
 
         public async Task FetchCategoriesAsync()
         {
-            var categories = await SoundPadManager.Soundpad.GetCategories();
-            Categories = categories.Value.Categories.Select(c => new SoundpadCategory(c)).ToList();
+            try
+            {
+                var categories = await SoundPadManager.Soundpad.GetCategories();
+                Categories = categories.Value.Categories.Select(c => new SoundpadCategory(c)).ToList();
+            }
+            catch (Exception ex)
+            {
+                MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}.{nameof(FetchCategoriesAsync)}: " + ex.Message + ex.InnerException is null ? string.Empty : ex.InnerException.Message);
+            }
+
         }
 
         public async Task FetchSoundListAsync(string categoryName = default)
         {
-            var soundList = await FetchSoundsAsync(categoryName);
-            if (soundList != null)
+            try
             {
-                Sounds = soundList.Select(s => new SoundpadSound(s)).ToList();
+                var soundList = await FetchSoundsAsync(categoryName);
+                if (soundList != null)
+                {
+                    Sounds = soundList.Select(s => new SoundpadSound(s)).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}.{nameof(FetchSoundListAsync)}: " + ex.Message + ex.InnerException is null ? string.Empty : ex.InnerException.Message);
             }
         }
 

@@ -1,15 +1,6 @@
 ﻿using PW.MacroDeck.SoundPad.Models;
 using SoundpadConnector;
-using SoundpadConnector.Response;
-using SoundpadConnector.XML;
-using SuchByte.MacroDeck.Variables;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PW.MacroDeck.SoundPad.Services
 {

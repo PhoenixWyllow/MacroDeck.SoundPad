@@ -40,7 +40,7 @@ namespace PW.MacroDeck.SoundPad.Services
         /// <returns></returns>
         public static T Do<T>(Func<T> func, TimeSpan retryInterval, int maxAttemptCount = 3)
         {
-            List<Exception> exceptions = new List<Exception>();
+            List<Exception> exceptions = new();
             int attempted = 0;
             while (attempted < maxAttemptCount)
             {

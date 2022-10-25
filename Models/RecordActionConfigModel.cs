@@ -1,14 +1,11 @@
 ﻿using PW.MacroDeck.SoundPad.Services;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Text.Json;
 
 namespace PW.MacroDeck.SoundPad.Models
 {
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-    public class RecordActionConfigModel : ISerializableConfiguration
+    public sealed class RecordActionConfigModel : ISerializableConfiguration
     {
         public RecordingDevice RecordingDevice { get; set; }
 

@@ -3,14 +3,8 @@ using PW.MacroDeck.SoundPad.ViewModels;
 using SuchByte.MacroDeck.GUI.CustomControls;
 using SuchByte.MacroDeck.Plugins;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace PW.MacroDeck.SoundPad.Views
 {
@@ -20,7 +14,7 @@ namespace PW.MacroDeck.SoundPad.Views
         private bool _isBusy = false;
         public PlayActionConfigView(PluginAction action)
         {
-            _viewModel = new PlayActionConfigViewModel(action);
+            _viewModel = new(action);
 
             InitializeComponent();
             ApplyLocalization();
@@ -56,7 +50,7 @@ namespace PW.MacroDeck.SoundPad.Views
             }
             while (_isBusy) //Poll _isBusy until previous call is finished otherwise ChangeSound breaks due to null exception. 
             {
-                await System.Threading.Tasks.Task.Delay(25);
+                await Task.Delay(25);
             }
             _viewModel.ChangeSound();
             if (_viewModel.Sound != null)

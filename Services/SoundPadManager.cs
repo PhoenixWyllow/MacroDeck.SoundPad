@@ -4,7 +4,7 @@ using System;
 
 namespace PW.MacroDeck.SoundPad.Services
 {
-    public sealed class SoundPadManager
+    public static class SoundPadManager
     {
         public static Soundpad Soundpad { get; private set; }
 
@@ -12,7 +12,7 @@ namespace PW.MacroDeck.SoundPad.Services
 
         public static void Start()
         {
-            Soundpad = new Soundpad()
+            Soundpad = new()
             {
                 AutoReconnect = true,
             };

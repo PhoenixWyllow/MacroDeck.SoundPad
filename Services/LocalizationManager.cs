@@ -13,9 +13,9 @@ using System.Text.Json;
 
 namespace PW.MacroDeck.SoundPad.Services
 {
-    internal sealed class LocalizationManager
+    internal static class LocalizationManager
     {
-        private static readonly object key = new object();
+        private static readonly object key = new();
 
         internal static Localization Instance { get; private set; }
 
@@ -27,8 +27,6 @@ namespace PW.MacroDeck.SoundPad.Services
             }
         }
 
-        private LocalizationManager() { }
-
 
         private static void GetLocalization()
         {
@@ -37,7 +35,7 @@ namespace PW.MacroDeck.SoundPad.Services
                 string languageName = LanguageManager.GetLanguageName();
                 if (Instance != null)
                 {
-                    LanguageManager.LanguageChanged -= (s, e) => GetLocalization();
+                    LanguageManager.LanguageChanged -= (_, _) => GetLocalization();
                 }
                 try
                 {
@@ -46,11 +44,11 @@ namespace PW.MacroDeck.SoundPad.Services
                 catch
                 {
                     //fallback - should never occur if things are done properly
-                    Instance = new Localization();
+                    Instance = new();
                 }
                 finally
                 {
-                    LanguageManager.LanguageChanged += (s, e) => GetLocalization();
+                    LanguageManager.LanguageChanged += (_, _) => GetLocalization();
                 }
             }
         }

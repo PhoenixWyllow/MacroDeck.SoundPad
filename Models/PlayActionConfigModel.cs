@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Text.Json;
 
 namespace PW.MacroDeck.SoundPad.Models
 {
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-    public class PlayActionConfigModel : ISerializableConfiguration
+    public sealed class PlayActionConfigModel : ISerializableConfiguration
     {
         public int AudioIndex { get; set; } = -1;
         public SoundpadSound Sound { get; set; }

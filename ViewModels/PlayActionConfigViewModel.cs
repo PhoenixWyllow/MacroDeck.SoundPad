@@ -5,7 +5,6 @@ using SuchByte.MacroDeck.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PW.MacroDeck.SoundPad.ViewModels
@@ -30,9 +29,9 @@ namespace PW.MacroDeck.SoundPad.ViewModels
             set => Configuration.Category = value;
         }
 
-        public List<SoundpadCategory> Categories { get; set; } = new List<SoundpadCategory>();
+        public List<SoundpadCategory> Categories { get; set; } = new();
 
-        public List<SoundpadSound> Sounds { get; set; } = new List<SoundpadSound>();
+        public List<SoundpadSound> Sounds { get; set; } = new();
 
         public PlayActionConfigViewModel(PluginAction action)
         {

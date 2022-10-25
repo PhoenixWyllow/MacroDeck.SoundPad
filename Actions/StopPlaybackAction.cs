@@ -1,15 +1,10 @@
 ﻿using PW.MacroDeck.SoundPad.Services;
 using SuchByte.MacroDeck.ActionButton;
-using SuchByte.MacroDeck.GUI;
-using SuchByte.MacroDeck.GUI.CustomControls;
 using SuchByte.MacroDeck.Plugins;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PW.MacroDeck.SoundPad.Actions
 {
-    public class StopPlaybackAction : PluginAction
+    public sealed class StopPlaybackAction : PluginAction
     {
         public override string Name => LocalizationManager.Instance.StopPlaybackActionName;
 

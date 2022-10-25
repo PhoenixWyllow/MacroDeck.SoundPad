@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 
 namespace PW.MacroDeck.SoundPad.Models
 {
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-    public class SoundpadCategory
+    public sealed class SoundpadCategory
     {
         public int Index { get; set; }
 

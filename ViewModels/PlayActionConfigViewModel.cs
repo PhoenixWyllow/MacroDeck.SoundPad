@@ -57,6 +57,7 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
     {
         _action.ConfigurationSummary = Configuration.ToString();
         _action.Configuration = Configuration.Serialize();
+        _action.BindableVariable = SoundPadManager.FindIsPlayingIdVariable(Configuration.AudioIndex);
     }
 
     public void ChangeSound(string audioTitle = default)
@@ -104,8 +105,7 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
     {
         try
         {
-            var categories = await SoundPadManager.Soundpad.GetCategories();
-            Categories = categories.Value.Categories.Select(c => new SoundpadCategory(c)).ToList();
+            Categories = await SoundPadManager.GetCategoriesListAsync();
         }
         catch (Exception ex)
         {
@@ -113,7 +113,7 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
         }
 
     }
-
+    
     public async Task FetchSoundListAsync(string categoryName = default)
     {
         try
@@ -134,10 +134,8 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
     {
         if (string.IsNullOrEmpty(categoryName) || Categories.First(c => c.Name.Equals(categoryName)).Type == 1)
         {
-            var soundlist = await SoundPadManager.Soundpad.GetSoundlist();
-            return soundlist.Value.Sounds;
+            return await SoundPadManager.GetSoundListAsync();
         }
-        var category = await SoundPadManager.Soundpad.GetCategory(Categories.First(c => c.Name.Equals(categoryName)).Index, withSounds: true);
-        return category.Value.Sounds;
+        return await SoundPadManager.GetSoundListAsync(Categories.First(c => c.Name.Equals(categoryName)).Index);
     }
 }

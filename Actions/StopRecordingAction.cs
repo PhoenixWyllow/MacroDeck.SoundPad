@@ -14,9 +14,6 @@ public sealed class StopRecordingAction : PluginAction
 
     public override void Trigger(string clientId, ActionButton actionButton)
     {
-        if (SoundPadManager.IsConnected)
-        {
-            SoundPadManager.Soundpad.StopRecording();
-        }
+        SoundPadManager.StopRecording();
     }
 }

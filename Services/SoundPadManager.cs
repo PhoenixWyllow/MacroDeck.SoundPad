@@ -1,27 +1,49 @@
 ﻿using PW.MacroDeck.SoundPad.Models;
 using SoundpadConnector;
+using SoundpadConnector.Response;
+using SuchByte.MacroDeck.Variables;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using SoundpadConnector.XML;
 
 namespace PW.MacroDeck.SoundPad.Services;
 
 public static class SoundPadManager
 {
-    public static Soundpad Soundpad { get; private set; }
+    private const string PlayVariableFormat = "soundpad_{0}_playing";
+    public const string IsRecordingVariable = "soundpad_recording";
 
-    public static bool IsConnected => Soundpad != null && Soundpad.ConnectionStatus == ConnectionStatus.Connected;
+    private static Soundpad Soundpad { get; set; }
+
+    public static bool IsConnected => Soundpad is { ConnectionStatus: ConnectionStatus.Connected };
+    public static int CurrentSoundIndex { get; set; }
+
+    private static string GetIsPlayingIdVariable(int index) => string.Format(PlayVariableFormat, index);
+
+    public static string FindIsPlayingIdVariable(int index)
+    {
+        var variable = GetIsPlayingIdVariable(index);
+        SetBoolVariable(variable, false);
+        return variable;
+    }
 
     public static void Start()
     {
+        SetRecordingVariable(false);
+        SetPlayStatus(false);
+
         Soundpad = new()
         {
             AutoReconnect = true,
         };
 
         Soundpad.StatusChanged += OnStatusChanged;
+        Soundpad.Connected += (_, _) => DoPoll();
 
         // Note that the API is asynchronous. Make sure that Soundpad is connected before executing commands.
         Soundpad.ConnectAsync();
-
     }
 
     private static void OnStatusChanged(object sender, EventArgs e)
@@ -34,8 +56,8 @@ public static class SoundPadManager
         if (IsConnected)
         {
             var actionConfig = PlayActionConfigModel.Deserialize(config);
-            int index = actionConfig.Sound?.Index ?? actionConfig.AudioIndex;
-            Soundpad.PlaySound(index);
+            CurrentSoundIndex = actionConfig.Sound?.Index ?? actionConfig.AudioIndex;
+            Soundpad.PlaySound(CurrentSoundIndex);
         }
     }
 
@@ -57,5 +79,96 @@ public static class SoundPadManager
                     break;
             }
         }
+    }
+
+    public static void StopRecording()
+    {
+        if (IsConnected)
+        {
+            Soundpad.StopRecording();
+        }
+
+    }
+
+    public static void StopSound()
+    {
+        if (IsConnected)
+        {
+            Soundpad.StopSound();
+        }
+    }
+
+    public static async Task<List<SoundpadCategory>> GetCategoriesListAsync()
+    {
+        var categories = await Soundpad.GetCategories();
+        return categories.Value.Categories.Select(c => new SoundpadCategory(c)).ToList();
+    }
+
+    public static async Task<List<Sound>> GetSoundListAsync(int index)
+    {
+        var category = await Soundpad.GetCategory(index, withSounds: true);
+        return category.Value.Sounds;
+    }
+
+    public static async Task<List<Sound>> GetSoundListAsync()
+    {
+        var soundList = await Soundpad.GetSoundlist();
+        return soundList.Value.Sounds;
+    }
+
+    private static async void DoPoll()
+    {
+        while (Soundpad.ConnectionStatus == ConnectionStatus.Connected)
+        {
+            try
+            {
+                var response = await Soundpad.IsAlive();
+                if (response.IsSuccessful)
+                {
+                    await UpdateVariables();
+                }
+
+            }
+            catch
+            {
+                //do nothing.
+            }
+            await Task.Delay(Soundpad.PollingInterval);
+        }
+    }
+
+    private static async Task UpdateVariables()
+    {
+        var recPos = await Soundpad.GetRecordingPosition();
+        SetRecordingVariable(recPos.Value != 0);
+
+        var playStatus = await Soundpad.GetPlayStatus();
+        SetPlayStatus(playStatus.Value != PlayStatus.Stopped);
+    }
+
+    private static void SetRecordingVariable(bool isRecording)
+    {
+        SetBoolVariable(IsRecordingVariable, isRecording);
+    }
+
+    private static void SetPlayStatus(bool statusValue)
+    {
+        string currentPlayVar = !CurrentSoundIndex.Equals(int.MinValue) ? GetIsPlayingIdVariable(CurrentSoundIndex) : string.Empty;
+
+        foreach (var variable in VariableManager.GetVariables(PluginInstance.Plugin)
+                     .Where(v => v.Name != IsRecordingVariable && v.Name != currentPlayVar))
+        {
+            SetBoolVariable(variable.Name, false);
+        }
+
+        if (!string.IsNullOrEmpty(currentPlayVar))
+        {
+            SetBoolVariable(currentPlayVar, statusValue);
+        }
+    }
+
+    private static void SetBoolVariable(string currentPlayVar, bool statusValue)
+    {
+        VariableManager.SetValue(currentPlayVar, statusValue, VariableType.Bool, PluginInstance.Plugin);
     }
 }

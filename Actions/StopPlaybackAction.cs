@@ -14,9 +14,6 @@ public sealed class StopPlaybackAction : PluginAction
 
     public override void Trigger(string clientId, ActionButton actionButton)
     {
-        if (SoundPadManager.IsConnected)
-        {
-            SoundPadManager.Soundpad.StopSound();
-        }
+        SoundPadManager.StopSound();
     }
 }

@@ -3,6 +3,7 @@ using SuchByte.MacroDeck.Logging;
 using SuchByte.MacroDeck.Plugins;
 using System;
 using System.Collections.Generic;
+using PW.MacroDeck.SoundPad.Services;
 
 namespace PW.MacroDeck.SoundPad.ViewModels;
 
@@ -48,6 +49,7 @@ internal class RecordActionConfigViewModel : ISerializableConfigViewModel
     {
         _action.ConfigurationSummary = Configuration.ToString();
         _action.Configuration = Configuration.Serialize();
+        _action.BindableVariable = SoundPadManager.IsRecordingVariable;
     }
 
 }

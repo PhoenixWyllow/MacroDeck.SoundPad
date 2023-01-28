@@ -1,1 +1,21 @@
-
+{
+    "Attribution": "PhoenixWyllow",
+    "Language": "English",
+    "PluginDescription": "Интеграция SoundPad для Macro Deck",
+    "Connected": "Саундпад подключен",
+    "Disconnected": "Саундпад отключен",
+    "PlayActionName": "Воспроизвести",
+    "PlayActionDescription": "Воспроизвести аудио",
+    "PlayActionCategory": "Категория",
+    "PlayActionSoundTitle": "Звук",
+    "PleaseConnect": "Убедитесь, что Soundpad открыт и подключен, затем повторите попытку.",
+    "StopPlaybackActionName": "Остановить звук",
+    "StopPlaybackActionDescription": "Остановить воспроизведение звука саундпада",
+    "StartRecordingActionName": "Начать запись",
+    "StartRecordingActionDescription": "Начать запись с выбранного устройства. Используемое устройство указано в настройках Soundpad.",
+    "RecordingDeviceSelection": "Записывающее устройство",
+    "RecordingDeviceMicrophone": "Микрофон",
+    "RecordingDeviceSpeakers": "Компьютерные колонки",
+    "StopRecordingActionName": "Остановить запись",
+    "StopRecordingActionDescription": "Останавливает запись саундпада"
+}

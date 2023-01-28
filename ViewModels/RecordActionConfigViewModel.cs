@@ -2,7 +2,6 @@
 using SuchByte.MacroDeck.Logging;
 using SuchByte.MacroDeck.Plugins;
 using System;
-using System.Collections.Generic;
 
 namespace PW.MacroDeck.SoundPad.ViewModels
 {
@@ -12,17 +11,13 @@ namespace PW.MacroDeck.SoundPad.ViewModels
 
         ISerializableConfiguration ISerializableConfigViewModel.SerializableConfiguration => Configuration;
 
-        public RecordActionConfigModel Configuration { get; set; }
+        private RecordActionConfigModel Configuration { get; }
 
         public RecordingDevice RecordingDevice
         {
             get => Configuration.RecordingDevice;
             set => Configuration.RecordingDevice = value;
         }
-
-        public List<SoundpadCategory> Categories { get; set; }
-
-        public List<SoundpadSound> Sounds { get; set; }
 
         public RecordActionConfigViewModel(PluginAction action)
         {
@@ -35,12 +30,12 @@ namespace PW.MacroDeck.SoundPad.ViewModels
             try
             {
                 SetConfig();
-                MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}: config saved");
+                MacroDeckLogger.Trace(PluginInstance.Plugin, $"{nameof(RecordActionConfigViewModel)}: config saved");
             }
             catch (Exception ex)
             {
-                MacroDeckLogger.Error(PluginInstance.Plugin, $"{GetType().Name}: config NOT saved");
-                MacroDeckLogger.Error(PluginInstance.Plugin, $"{GetType().Name}: {ex.Message}");
+                MacroDeckLogger.Error(PluginInstance.Plugin, $"{nameof(RecordActionConfigViewModel)}: config NOT saved");
+                MacroDeckLogger.Error(PluginInstance.Plugin, $"{nameof(RecordActionConfigViewModel)}: {ex.Message}");
             }
         }
 

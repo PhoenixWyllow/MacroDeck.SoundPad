@@ -5,6 +5,7 @@
  * Thank you.
  */
 
+using System;
 using PW.MacroDeck.SoundPad.Models;
 using SuchByte.MacroDeck.Language;
 using System.IO;
@@ -37,7 +38,7 @@ namespace PW.MacroDeck.SoundPad.Services
                 string languageName = LanguageManager.GetLanguageName();
                 if (Instance != null)
                 {
-                    LanguageManager.LanguageChanged -= (s, e) => GetLocalization();
+                    LanguageManager.LanguageChanged -= OnLanguageChanged;
                 }
                 try
                 {
@@ -50,10 +51,12 @@ namespace PW.MacroDeck.SoundPad.Services
                 }
                 finally
                 {
-                    LanguageManager.LanguageChanged += (s, e) => GetLocalization();
+                    LanguageManager.LanguageChanged += OnLanguageChanged;
                 }
             }
         }
+
+        private static void OnLanguageChanged(object sender, EventArgs e) => GetLocalization();
 
         private static string GetJsonLanguageResource(string languageName)
         {

@@ -5,6 +5,7 @@ using SuchByte.MacroDeck.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,23 +17,23 @@ namespace PW.MacroDeck.SoundPad.ViewModels
 
         ISerializableConfiguration ISerializableConfigViewModel.SerializableConfiguration => Configuration;
 
-        public PlayActionConfigModel Configuration { get; set; }
+        private PlayActionConfigModel Configuration { get; }
 
         public SoundpadSound Sound
         {
             get => Configuration.Sound;
-            set => Configuration.Sound = value;
+            private set => Configuration.Sound = value;
         }
 
         public SoundpadCategory Category
         {
             get => Configuration.Category;
-            set => Configuration.Category = value;
+            private set => Configuration.Category = value;
         }
 
-        public List<SoundpadCategory> Categories { get; set; } = new List<SoundpadCategory>();
+        public List<SoundpadCategory> Categories { get; } = new List<SoundpadCategory>();
 
-        public List<SoundpadSound> Sounds { get; set; } = new List<SoundpadSound>();
+        public List<SoundpadSound> Sounds { get; } = new List<SoundpadSound>();
 
         public PlayActionConfigViewModel(PluginAction action)
         {
@@ -40,17 +41,18 @@ namespace PW.MacroDeck.SoundPad.ViewModels
             _action = action;
         }
 
+        public SoundpadCategory DefaultCategory => Categories.FirstOrDefault(c => c.Type == 1);
         public void SaveConfig()
         {
             try
             {
                 SetConfig();
-                MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}: config saved");
+                MacroDeckLogger.Trace(PluginInstance.Plugin, $"{nameof(PlayActionConfigViewModel)}: config saved");
             }
             catch (Exception ex)
             {
-                MacroDeckLogger.Error(PluginInstance.Plugin, $"{GetType().Name}: config NOT saved");
-                MacroDeckLogger.Error(PluginInstance.Plugin, $"{GetType().Name}: {ex.Message}");
+                MacroDeckLogger.Error(PluginInstance.Plugin, $"{nameof(PlayActionConfigViewModel)}: config NOT saved");
+                MacroDeckLogger.Error(PluginInstance.Plugin, $"{nameof(PlayActionConfigViewModel)}: {ex.Message}");
             }
         }
 
@@ -64,17 +66,17 @@ namespace PW.MacroDeck.SoundPad.ViewModels
         {
             if (!string.IsNullOrEmpty(audioTitle))
             {
-                Sound = Sounds.FirstOrDefault(s => s.Title.Equals(audioTitle));
+                Sound = Sounds.FirstOrDefault(s => s.Title == audioTitle);
+            }
+            else if (!(Sound is null)) //load existing configuration
+            {
+                Sound = Sounds.FirstOrDefault(s => s.Title == Sound.Title) ??
+                        Sounds.FirstOrDefault(s => s.Index == Sound.Index);
             }
 
-            if (Sound != null && !Sounds.Any(s => s.Equals(Sound)))
+            if (Sound is null && Configuration.AudioIndex > -1)
             {
-                Sound = Sounds.FirstOrDefault(s => s.Title.Equals(Sound.Title)) ?? Sounds.FirstOrDefault(s => s.Index.Equals(Sound.Index));
-            }
-
-            if (Sound == null && Configuration.AudioIndex > -1)
-            {
-                Sound = Sounds.FirstOrDefault(s => s.Index.Equals(Configuration.AudioIndex));
+                Sound = Sounds.FirstOrDefault(s => s.Index == Configuration.AudioIndex);
             }
 
             if (Sound != null)
@@ -87,30 +89,29 @@ namespace PW.MacroDeck.SoundPad.ViewModels
         {
             if (!string.IsNullOrEmpty(categoryName))
             {
-                Category = Categories.FirstOrDefault(c => c.Name.Equals(categoryName));
+                Category = Categories.FirstOrDefault(c => c.Name == categoryName);
+            }
+            else if (!(Category is null)) //load existing configuration
+            {
+                Category = Categories.FirstOrDefault(c => c.Name == Category.Name) ??
+                           Categories.FirstOrDefault(c => c.Index == Category.Index);
             }
 
-            if (Category != null && !Categories.Any(c => c.Equals(Category)))
-            {
-                Category = Categories.FirstOrDefault(c => c.Name.Equals(Category.Name)) ?? Categories.FirstOrDefault(c => c.Index.Equals(Category.Index));
-            }
             //separate condition in case changed to null (ie. category changed in Name and Index)
-            if (Category == null)
-            {
-                Category = Categories.FirstOrDefault(c => c.Type == 1);
-            }
+            Category ??= DefaultCategory;
         }
 
         public async Task FetchCategoriesAsync()
         {
             try
             {
-                var categories = await SoundPadManager.Soundpad.GetCategories();
-                Categories = categories.Value.Categories.Select(c => new SoundpadCategory(c)).ToList();
+                var categoryListResponse = await SoundPadManager.Soundpad.GetCategories();
+                Categories.Clear();
+                Categories.AddRange(categoryListResponse.Value.Categories.Select(c => new SoundpadCategory(c)));
             }
             catch (Exception ex)
             {
-                MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}.{nameof(FetchCategoriesAsync)}: " + ex.Message + ex.InnerException is null ? string.Empty : ex.InnerException.Message);
+                MacroDeckLogger.Warning(PluginInstance.Plugin,  ExceptionMessage(ex));
             }
 
         }
@@ -122,24 +123,36 @@ namespace PW.MacroDeck.SoundPad.ViewModels
                 var soundList = await FetchSoundsAsync(categoryName);
                 if (soundList != null)
                 {
-                    Sounds = soundList.Select(s => new SoundpadSound(s)).ToList();
+                    Sounds.Clear();
+                    Sounds.AddRange(soundList.Select(s => new SoundpadSound(s)));
                 }
             }
             catch (Exception ex)
             {
-                MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}.{nameof(FetchSoundListAsync)}: " + ex.Message + ex.InnerException is null ? string.Empty : ex.InnerException.Message);
+                MacroDeckLogger.Warning(PluginInstance.Plugin, ExceptionMessage(ex));
             }
         }
 
         private async Task<List<SoundpadConnector.XML.Sound>> FetchSoundsAsync(string categoryName = default)
         {
-            if (string.IsNullOrEmpty(categoryName) || Categories.First(c => c.Name.Equals(categoryName)).Type == 1)
+            if (string.IsNullOrEmpty(categoryName) || Categories.First(c => c.Name == categoryName).Type == 1)
             {
-                var soundlist = await SoundPadManager.Soundpad.GetSoundlist();
-                return soundlist.Value.Sounds;
+                var soundlistResponse = await SoundPadManager.Soundpad.GetSoundlist();
+                return soundlistResponse.Value.Sounds;
             }
-            var category = await SoundPadManager.Soundpad.GetCategory(Categories.First(c => c.Name.Equals(categoryName)).Index, withSounds: true);
+            var category = await SoundPadManager.Soundpad.GetCategory(Categories.First(c => c.Name == categoryName).Index, withSounds: true);
             return category.Value.Sounds;
+        }
+
+        private static string ExceptionMessage(Exception ex, [CallerMemberName]string calledBy = default)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0}.{1}: {2}", nameof(PlayActionConfigViewModel), calledBy, ex.Message);
+            if (ex.InnerException != null)
+            {
+                sb.AppendFormat(" - {0}", ex.InnerException.Message);
+            }
+            return sb.ToString();
         }
     }
 }

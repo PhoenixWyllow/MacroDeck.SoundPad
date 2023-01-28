@@ -4,9 +4,7 @@ using SuchByte.MacroDeck.GUI.CustomControls;
 using SuchByte.MacroDeck.Plugins;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
-using SuchByte.MacroDeck.Variables;
 
 namespace PW.MacroDeck.SoundPad
 {
@@ -46,14 +44,14 @@ namespace PW.MacroDeck.SoundPad
             SuchByte.MacroDeck.MacroDeck.OnMainWindowLoad += MacroDeck_OnMainWindowLoad;
         }
 
-        private static ToolTip contentButtonToolTip;
+        private static ToolTip _contentButtonToolTip;
         private void MacroDeck_OnMainWindowLoad(object sender, EventArgs e)
         {
             if (sender != null &&
                 sender is SuchByte.MacroDeck.GUI.MainWindow mainWindow)
             {
                 PluginInstance.ContentButton = new ContentSelectorButton();
-                contentButtonToolTip = new ToolTip();
+                _contentButtonToolTip = new ToolTip();
                 UpdateContentButton();
 
                 mainWindow.contentButtonPanel.Controls.Add(PluginInstance.ContentButton);
@@ -67,7 +65,7 @@ namespace PW.MacroDeck.SoundPad
             {
                 PluginInstance.ContentButton.BackgroundImage = SoundPadManager.IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected;
 
-                contentButtonToolTip.SetToolTip(PluginInstance.ContentButton, SoundPadManager.IsConnected ? LocalizationManager.Instance.Connected : LocalizationManager.Instance.Disconnected);
+                _contentButtonToolTip.SetToolTip(PluginInstance.ContentButton, SoundPadManager.IsConnected ? LocalizationManager.Instance.Connected : LocalizationManager.Instance.Disconnected);
             }
         }
     }

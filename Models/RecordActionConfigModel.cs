@@ -1,8 +1,5 @@
 ﻿using PW.MacroDeck.SoundPad.Services;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Text.Json;
 
 namespace PW.MacroDeck.SoundPad.Models

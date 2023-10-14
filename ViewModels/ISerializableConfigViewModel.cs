@@ -1,13 +1,12 @@
 ﻿using PW.MacroDeck.SoundPad.Models;
 
-namespace PW.MacroDeck.SoundPad.ViewModels
+namespace PW.MacroDeck.SoundPad.ViewModels;
+
+internal interface ISerializableConfigViewModel
 {
-    internal interface ISerializableConfigViewModel
-    {
-        protected ISerializableConfiguration SerializableConfiguration { get; }
+    protected ISerializableConfiguration SerializableConfiguration { get; }
 
-        void SetConfig();
+    void SetConfig();
 
-        void SaveConfig();
-    }
+    void SaveConfig();
 }

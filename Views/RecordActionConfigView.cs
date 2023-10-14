@@ -6,42 +6,41 @@ using SuchByte.MacroDeck.Plugins;
 using System;
 using System.Linq;
 
-namespace PW.MacroDeck.SoundPad.Views
+namespace PW.MacroDeck.SoundPad.Views;
+
+public partial class RecordActionConfigView : ActionConfigControl
 {
-    public partial class RecordActionConfigView : ActionConfigControl
+    private readonly RecordActionConfigViewModel _viewModel;
+
+    public RecordActionConfigView(PluginAction action)
     {
-        private readonly RecordActionConfigViewModel _viewModel;
+        _viewModel = new(action);
 
-        public RecordActionConfigView(PluginAction action)
-        {
-            _viewModel = new RecordActionConfigViewModel(action);
+        InitializeComponent();
+        ApplyLocalization();
+    }
 
-            InitializeComponent();
-            ApplyLocalization();
-        }
+    private void ApplyLocalization()
+    {
+        labelRecordingDevice.Text = LocalizationManager.Instance.RecordingDeviceSelection;
+    }
 
-        private void ApplyLocalization()
-        {
-            labelRecordingDevice.Text = LocalizationManager.Instance.RecordingDeviceSelection;
-        }
+    public override bool OnActionSave()
+    {
+        _viewModel.SaveConfig();
 
-        public override bool OnActionSave()
-        {
-            _viewModel.SaveConfig();
+        return base.OnActionSave();
+    }
 
-            return base.OnActionSave();
-        }
+    private void PlayActionConfigView_Load(object sender, EventArgs e)
+    {
+        deviceSelection.Items.Clear();
+        deviceSelection.Items.AddRange(RecordingDeviceExtensions.GetRecordingDevices().ToArray());
+        deviceSelection.SelectedIndex = (int)_viewModel.RecordingDevice;
+    }
 
-        private void PlayActionConfigView_Load(object sender, EventArgs e)
-        {
-            deviceSelection.Items.Clear();
-            deviceSelection.Items.AddRange(RecordingDeviceExtensions.GetRecordingDevices().ToArray());
-            deviceSelection.SelectedIndex = (int)_viewModel.RecordingDevice;
-        }
-
-        private void DeviceSelection_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _viewModel.RecordingDevice = (RecordingDevice)deviceSelection.SelectedIndex;
-        }
+    private void DeviceSelection_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        _viewModel.RecordingDevice = (RecordingDevice)deviceSelection.SelectedIndex;
     }
 }

@@ -5,6 +5,7 @@
   "repository": "https://github.com/PhoenixWyllow/MacroDeck.SoundPad",
   "packageId": "PhoenixWyllow.SoundPadPlugin",
   "version": "2.0.0",
-  "target-plugin-api-version": 35,
+  "target-plugin-api-version": 40,
+  "target-macro-deck-version": "2.13.0",
   "dll": "SoundPadPlugin.dll"
 }

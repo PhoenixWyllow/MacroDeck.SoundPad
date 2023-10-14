@@ -57,7 +57,7 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
     {
         _action.ConfigurationSummary = Configuration.ToString();
         _action.Configuration = Configuration.Serialize();
-        _action.BindableVariable = SoundPadManager.FindIsPlayingIdVariable(Configuration.AudioIndex);
+        _action.BindableVariable = SoundPadManager.GetIsPlayingIdVariable(Configuration.AudioIndex);
     }
 
     public void ChangeSound(string audioTitle = default)
@@ -95,10 +95,7 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
             Category = Categories.FirstOrDefault(c => c.Name.Equals(Category.Name)) ?? Categories.FirstOrDefault(c => c.Index.Equals(Category.Index));
         }
         //separate condition in case changed to null (ie. category changed in Name and Index)
-        if (Category == null)
-        {
-            Category = Categories.FirstOrDefault(c => c.Type == 1);
-        }
+        Category ??= Categories.FirstOrDefault(c => c.Type == 1);
     }
 
     public async Task FetchCategoriesAsync()
@@ -114,11 +111,11 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
 
     }
     
-    public async Task FetchSoundListAsync(string categoryName = default)
+    public async Task FetchSoundListAsync()
     {
         try
         {
-            var soundList = await FetchSoundsAsync(categoryName);
+            var soundList = await FetchSoundsAsync();
             if (soundList != null)
             {
                 Sounds = soundList.Select(s => new SoundpadSound(s)).ToList();
@@ -130,12 +127,12 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
         }
     }
 
-    private async Task<List<SoundpadConnector.XML.Sound>> FetchSoundsAsync(string categoryName = default)
+    private async Task<List<SoundpadConnector.XML.Sound>> FetchSoundsAsync()
     {
-        if (string.IsNullOrEmpty(categoryName) || Categories.First(c => c.Name.Equals(categoryName)).Type == 1)
+        if (string.IsNullOrEmpty(Category.Name) || Category.Type == 1)
         {
             return await SoundPadManager.GetSoundListAsync();
         }
-        return await SoundPadManager.GetSoundListAsync(Categories.First(c => c.Name.Equals(categoryName)).Index);
+        return await SoundPadManager.GetSoundListAsync(Category.Index);
     }
 }

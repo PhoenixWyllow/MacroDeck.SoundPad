@@ -20,14 +20,7 @@ public static class SoundPadManager
     public static bool IsConnected => Soundpad is { ConnectionStatus: ConnectionStatus.Connected };
     public static int CurrentSoundIndex { get; set; }
 
-    private static string GetIsPlayingIdVariable(int index) => string.Format(PlayVariableFormat, index);
-
-    public static string FindIsPlayingIdVariable(int index)
-    {
-        var variable = GetIsPlayingIdVariable(index);
-        SetBoolVariable(variable, false);
-        return variable;
-    }
+    public static string GetIsPlayingIdVariable(int index) => string.Format(PlayVariableFormat, index);
 
     public static void Start()
     {
@@ -115,9 +108,27 @@ public static class SoundPadManager
         var soundList = await Soundpad.GetSoundlist();
         return soundList.Value.Sounds;
     }
+    private static async Task SetVariables()
+    {
+        if (IsConnected)
+        {
+            var responseCount = await Soundpad.GetSoundlist();
+            if (responseCount.IsSuccessful)
+            {
+                var vars = VariableManager.GetVariables(PluginInstance.Plugin);
+                vars.ForEach(v => { VariableManager.DeleteVariable(v.Name); });
+                var count = responseCount.Value.Sounds.Count;
+                for (var i = 1; i <= count; i++)
+                {
+                    SetBoolVariable(GetIsPlayingIdVariable(i), false);
+                }
+            }
+        }
+    }
 
     private static async void DoPoll()
     {
+        await SetVariables();
         while (Soundpad.ConnectionStatus == ConnectionStatus.Connected)
         {
             try
@@ -155,15 +166,14 @@ public static class SoundPadManager
     {
         string currentPlayVar = !CurrentSoundIndex.Equals(int.MinValue) ? GetIsPlayingIdVariable(CurrentSoundIndex) : string.Empty;
 
-        foreach (var variable in VariableManager.GetVariables(PluginInstance.Plugin)
-                     .Where(v => v.Name != IsRecordingVariable && v.Name != currentPlayVar))
-        {
-            SetBoolVariable(variable.Name, false);
-        }
-
         if (!string.IsNullOrEmpty(currentPlayVar))
         {
             SetBoolVariable(currentPlayVar, statusValue);
+        }
+        foreach (var variable in VariableManager.GetVariables(PluginInstance.Plugin)
+                     .Where(v => v.Name != IsRecordingVariable && v.Name != currentPlayVar && v.Value == bool.TrueString))
+        {
+            SetBoolVariable(variable.Name, false);
         }
     }
 

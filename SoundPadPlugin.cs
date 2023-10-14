@@ -55,7 +55,6 @@ public class SoundPadPlugin : MacroDeckPlugin
 
             mainWindow.contentButtonPanel.Controls.Add(PluginInstance.ContentButton);
         }
-
     }
 
     public static void UpdateContentButton()

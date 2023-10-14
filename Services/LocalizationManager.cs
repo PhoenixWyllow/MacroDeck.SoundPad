@@ -5,6 +5,7 @@
  * Thank you.
  */
 
+using System;
 using PW.MacroDeck.SoundPad.Models;
 using SuchByte.MacroDeck.Language;
 using System.IO;
@@ -26,7 +27,6 @@ internal static class LocalizationManager
             GetLocalization();
         }
     }
-
 
     private static void GetLocalization()
     {

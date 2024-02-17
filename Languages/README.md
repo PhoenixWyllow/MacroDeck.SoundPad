@@ -7,7 +7,7 @@ If your language is not available, the plugin will default to English.
 ***
 ### If your language is missing or incomplete, please consider helping me out!
 
-To contribute your language, join the project on https://poeditor.com/join/project?hash=88WWuE9v4H and contribute your translation.
+To contribute your language, join the project on [Crowdin](https://crowdin.com/project/macrodecksoundpad/invite?h=cb72ffd552b77daaeacf4b4effa10cb82001472) and contribute your translation.
 
 It's as simple as that! I will do the merging from there!
 

@@ -27,7 +27,7 @@ This plugin has its own localization files, independent of Macro Deck.
 If your language is not available, the plugin will default to English.
 
 Check the files available in source under [Languages](MacroDeck.SoundPad/MacroDeck.SoundPad/Languages).
-If your language is missing or incomplete, please consider [helping me out by translating at POEditor](https://poeditor.com/join/project?hash=88WWuE9v4H)! 
+If your language is missing or incomplete, please consider [helping me out by translating](https://crowdin.com/project/macrodecksoundpad/invite?h=cb72ffd552b77daaeacf4b4effa10cb82001472)! 
 
 Currently available languages:
 - English

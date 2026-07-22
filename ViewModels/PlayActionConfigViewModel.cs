@@ -29,9 +29,9 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
         set => Configuration.Category = value;
     }
 
-    public List<SoundpadCategory> Categories { get; set; } = new();
+    public List<SoundpadCategory> Categories { get; set; } = [];
 
-    public List<SoundpadSound> Sounds { get; set; } = new();
+    public List<SoundpadSound> Sounds { get; set; } = [];
 
     public PlayActionConfigViewModel(PluginAction action)
     {
@@ -44,12 +44,11 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
         try
         {
             SetConfig();
-            MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}: config saved");
+            PluginLogger.Information(nameof(PlayActionConfigViewModel), "config saved");
         }
         catch (Exception ex)
         {
-            MacroDeckLogger.Error(PluginInstance.Plugin, $"{GetType().Name}: config NOT saved");
-            MacroDeckLogger.Error(PluginInstance.Plugin, $"{GetType().Name}: {ex.Message}");
+            PluginLogger.Error(nameof(PlayActionConfigViewModel), "config NOT saved - {ExceptionMessage}", ex.Message);
         }
     }
 
@@ -106,7 +105,8 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
         }
         catch (Exception ex)
         {
-            MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}.{nameof(FetchCategoriesAsync)}: " + ex.Message + ex.InnerException is null ? string.Empty : ex.InnerException.Message);
+            var innerException = ex.InnerException is null ? string.Empty : ex.InnerException.Message;
+            PluginLogger.Information(nameof(PlayActionConfigViewModel), "Error fetching categories - {ExceptionMessage} {InnerExceptionMessage}", ex.Message, innerException);
         }
 
     }
@@ -123,7 +123,8 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
         }
         catch (Exception ex)
         {
-            MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}.{nameof(FetchSoundListAsync)}: " + ex.Message + ex.InnerException is null ? string.Empty : ex.InnerException.Message);
+            var innerException = ex.InnerException is null ? string.Empty : ex.InnerException.Message;
+            PluginLogger.Information(nameof(PlayActionConfigViewModel), "Error fetching sounds - {ExceptionMessage} {InnerExceptionMessage}", ex.Message, innerException);
         }
     }
 

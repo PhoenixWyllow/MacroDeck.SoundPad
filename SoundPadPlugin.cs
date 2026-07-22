@@ -23,13 +23,12 @@ public class SoundPadPlugin : MacroDeckPlugin
 
         SoundPadManager.Start();
 
-        Actions = new()
-        {
+        Actions = [
             new PlayAction(),
             new StopPlaybackAction(),
             new StartRecordingAction(),
             new StopRecordingAction(),
-        };
+        ];
     }
 
     public override void OpenConfigurator()

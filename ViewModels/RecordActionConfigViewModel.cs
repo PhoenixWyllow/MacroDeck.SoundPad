@@ -36,12 +36,11 @@ internal class RecordActionConfigViewModel : ISerializableConfigViewModel
         try
         {
             SetConfig();
-            MacroDeckLogger.Info(PluginInstance.Plugin, $"{GetType().Name}: config saved");
+            PluginLogger.Information(nameof(RecordActionConfigViewModel), "config saved");
         }
         catch (Exception ex)
         {
-            MacroDeckLogger.Error(PluginInstance.Plugin, $"{GetType().Name}: config NOT saved");
-            MacroDeckLogger.Error(PluginInstance.Plugin, $"{GetType().Name}: {ex.Message}");
+            PluginLogger.Error(nameof(RecordActionConfigViewModel), "config NOT saved - {ExceptionMessage}", ex.Message);
         }
     }
 

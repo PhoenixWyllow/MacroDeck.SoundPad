@@ -179,6 +179,6 @@ public static class SoundPadManager
 
     private static void SetBoolVariable(string currentPlayVar, bool statusValue)
     {
-        VariableManager.SetValue(currentPlayVar, statusValue, VariableType.Bool, PluginInstance.Plugin);
+        VariableManager.SetValue(currentPlayVar, statusValue, VariableType.Bool, PluginInstance.Plugin, []);
     }
 }

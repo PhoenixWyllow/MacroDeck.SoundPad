@@ -44,6 +44,10 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Languages\*.json" />
+	</ItemGroup>
 	
 	<ItemGroup>
 		<EmbeddedResource Include="Languages\*.json" />

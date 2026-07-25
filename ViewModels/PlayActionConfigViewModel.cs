@@ -44,11 +44,11 @@ internal class PlayActionConfigViewModel : ISerializableConfigViewModel
         try
         {
             SetConfig();
-            PluginLogger.Information(nameof(PlayActionConfigViewModel), "config saved");
         }
         catch (Exception ex)
         {
-            PluginLogger.Error(nameof(PlayActionConfigViewModel), "config NOT saved - {ExceptionMessage}", ex.Message);
+            PluginLogger.Warning(nameof(PlayActionConfigViewModel), "config NOT saved - {ExceptionMessage}", ex.Message);
+            PluginLogger.DebugException(ex);
         }
     }
 

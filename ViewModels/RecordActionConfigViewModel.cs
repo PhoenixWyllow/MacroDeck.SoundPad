@@ -36,11 +36,11 @@ internal class RecordActionConfigViewModel : ISerializableConfigViewModel
         try
         {
             SetConfig();
-            PluginLogger.Information(nameof(RecordActionConfigViewModel), "config saved");
         }
         catch (Exception ex)
         {
-            PluginLogger.Error(nameof(RecordActionConfigViewModel), "config NOT saved - {ExceptionMessage}", ex.Message);
+            PluginLogger.Warning(nameof(RecordActionConfigViewModel), "config NOT saved - {ExceptionMessage}", ex.Message);
+            PluginLogger.DebugException(ex);
         }
     }
 

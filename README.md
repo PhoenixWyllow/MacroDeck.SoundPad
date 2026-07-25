@@ -17,9 +17,13 @@
 | Start Recording | Start recording from either mic or speakers | Begin recording from selected device. Actual device is selected in Soundpad preferences. | 
 | Stop Recording | Stop recording | Stop recording. If you want this as a Release action after recording, you will need to create a user variable. | 
 
-More features/actions coming soon...
 
-Please note: this plugin is currently in beta. Please report bugs and request features. 
+***new in v2.0.0*** \
+Binding the button state to a variable! \
+Variables will be generated for new buttons and you will get a prompt if you want these variables to be applied.
+
+
+Please report bugs and request features. 
 
 ***
 ## Need this in your language?

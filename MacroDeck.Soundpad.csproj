@@ -1,14 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionMajor>0</VersionMajor>
-		<VersionMinor>2</VersionMinor>
-		<VersionPatch>9</VersionPatch>
+		<VersionMajor>2</VersionMajor>
+		<VersionMinor>1</VersionMinor>
+		<VersionPatch>0</VersionPatch>
 		<VersionRevision Condition="'$(VersionRevision)' == ''">$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("000")).$([System.DateTime]::UtcNow.ToString("HHmm"))</VersionRevision>
 	</PropertyGroup>
 	
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+		<TargetFramework>net10.0-windows10.0.22000.0</TargetFramework>
+		<LangVersion>default</LangVersion>
 		<UseWindowsForms>true</UseWindowsForms>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 		<RootNamespace>PW.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
@@ -27,16 +29,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="SoundpadConnector" Version="1.3.1" />
-		<PackageReference Include="System.Drawing.Common" Version="5.0.3" ExcludeAssets="runtime" />
+		<PackageReference Include="SuchByte.MacroDeck" Version="2.15.0" />
 	</ItemGroup>
-	
-	<ItemGroup>
-		<Reference Include="Macro Deck 2">
-			<HintPath>E:\Code\source\repos\MD\Macro-Deck\bin\Release\netcoreapp3.1\publish\Macro Deck 2.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-	</ItemGroup>
-	
+		
 	<ItemGroup>
 		<None Include="README.md">
 			<Pack>True</Pack>
@@ -78,19 +73,18 @@
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>
-	
-	<ItemGroup>
-		<PluginFiles Include="$(OutDir)\*.dll;$(OutDir)\ExtensionManifest.json;$(OutDir)\ExtensionIcon.png" />
-	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Copy DestinationFolder="$(AppData)\Macro Deck\plugins\PhoenixWyllow.$(TargetName.Replace(' ', ''))\" SourceFiles="@(PluginFiles)" />
-	</Target>
-
-	<Target Name="PostBuildZipRelease" AfterTargets="PostBuildEvent" Condition="'$(ConfigurationName)' == 'Release'">
-		<Copy DestinationFolder="$(SolutionDir)releases\temp\" SourceFiles="@(PluginFiles)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="true" />
-		<ZipDirectory SourceDirectory="$(SolutionDir)releases\temp\" DestinationFile="$(SolutionDir)releases\$(TargetName.Replace(' ', ''))_$(Version).zip" Overwrite="true" />
-		<RemoveDir Directories="$(SolutionDir)releases\temp\" />
+		<ItemGroup>
+			<PluginFiles Include="$(OutDir)\Soundpad*.dll;$(OutDir)\ExtensionManifest.json;$(OutDir)\ExtensionIcon.png" />
+		</ItemGroup>
+		<RemoveDir Directories="$(ProjectDir)releases\$(Configuration)\PhoenixWyllow.$(TargetName)\" />
+		<Copy
+			DestinationFolder="$(ProjectDir)releases\$(Configuration)\PhoenixWyllow.$(TargetName)\"
+			SourceFiles="@(PluginFiles)"
+			OverwriteReadOnlyFiles="true"
+			SkipUnchangedFiles="true"
+		/>
 	</Target>
 	
 </Project>

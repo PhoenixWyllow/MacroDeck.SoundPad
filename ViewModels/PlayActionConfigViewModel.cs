@@ -1,7 +1,8 @@
 ﻿using PW.MacroDeck.SoundPad.Models;
 using PW.MacroDeck.SoundPad.Services;
-using SuchByte.MacroDeck.Logging;
+
 using SuchByte.MacroDeck.Plugins;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

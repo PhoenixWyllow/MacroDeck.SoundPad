@@ -1,5 +1,4 @@
 ﻿using PW.MacroDeck.SoundPad.Models;
-using SuchByte.MacroDeck.Logging;
 using SuchByte.MacroDeck.Plugins;
 using System;
 using System.Collections.Generic;

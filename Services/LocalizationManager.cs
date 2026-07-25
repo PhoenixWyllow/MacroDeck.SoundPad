@@ -5,9 +5,10 @@
  * Thank you.
  */
 
-using System;
 using PW.MacroDeck.SoundPad.Models;
+
 using SuchByte.MacroDeck.Language;
+
 using System.IO;
 using System.Linq;
 using System.Text.Json;

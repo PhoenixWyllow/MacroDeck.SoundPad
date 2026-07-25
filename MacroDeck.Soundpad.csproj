@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionMajor>2</VersionMajor>
-		<VersionMinor>1</VersionMinor>
-		<VersionPatch>0</VersionPatch>
 		<VersionRevision Condition="'$(VersionRevision)' == ''">$([System.DateTime]::UtcNow.ToString("yy"))$([System.DateTime]::UtcNow.DayOfYear.ToString("000")).$([System.DateTime]::UtcNow.ToString("HHmm"))</VersionRevision>
 	</PropertyGroup>
 	
 	<PropertyGroup>
+		<Version>2.1.0</Version>
+		<AssemblyVersion>2.$(VersionRevision)</AssemblyVersion>
 		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 		<TargetFramework>net10.0-windows10.0.22000.0</TargetFramework>
 		<LangVersion>default</LangVersion>
@@ -21,9 +20,6 @@
 		<Authors>PhoenixWyllow (pw.dev@outlook.com)</Authors>
 		<Copyright>PhoenixWyllow (pw.dev@outlook.com)</Copyright>
 		<Description>A SoundPad integration for Macro Deck</Description>
-		<AssemblyVersion>$(VersionMajor).$(VersionMinor).$(VersionRevision)</AssemblyVersion>
-		<FileVersion>$(AssemblyVersion)</FileVersion>
-		<Version>$(VersionMajor).$(VersionMinor).$(VersionPatch)</Version>
 		<AssemblyName>SoundPadPlugin</AssemblyName>
 	</PropertyGroup>
 

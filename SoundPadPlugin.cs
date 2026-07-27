@@ -58,11 +58,19 @@ public class SoundPadPlugin : MacroDeckPlugin
 
     public static void UpdateContentButton()
     {
-        if (PluginInstance.ContentButton != null)
+        var contentButton = PluginInstance.ContentButton;
+        if (contentButton is null || contentButton.IsDisposed)
         {
-            PluginInstance.ContentButton.BackgroundImage = SoundPadManager.IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected;
-
-            _contentButtonToolTip.SetToolTip(PluginInstance.ContentButton, SoundPadManager.IsConnected ? LocalizationManager.Instance.Connected : LocalizationManager.Instance.Disconnected);
+            return;
         }
+
+        if (contentButton.InvokeRequired)
+        {
+            contentButton.BeginInvoke((Action)UpdateContentButton);
+            return;
+        }
+
+        contentButton.BackgroundImage = SoundPadManager.IsConnected ? Properties.Resources.SoundPadConnected : Properties.Resources.SoundPadDisconnected;
+        _contentButtonToolTip.SetToolTip(contentButton, SoundPadManager.IsConnected ? LocalizationManager.Instance.Connected : LocalizationManager.Instance.Disconnected);
     }
 }

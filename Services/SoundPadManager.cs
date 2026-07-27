@@ -14,6 +14,7 @@ public static class SoundPadManager
 {
     private const string PlayVariableFormat = "soundpad_{0}_playing";
     public const string IsRecordingVariable = "soundpad_recording";
+    private static ConnectionStatus? _lastStatus;
 
     private static Soundpad Soundpad { get; set; }
 
@@ -33,15 +34,49 @@ public static class SoundPadManager
         };
 
         Soundpad.StatusChanged += OnStatusChanged;
-        Soundpad.Connected += (_, _) => DoPoll();
+        Soundpad.Connected += OnConnected;
+        Soundpad.Disconnected += (_, e) =>
+        {
+            if (e.Exception is null)
+            {
+                PluginLogger.Information(nameof(SoundPadManager), "Disconnected from Soundpad.");
+                return;
+            }
+
+            PluginLogger.Warning(nameof(SoundPadManager), "Lost the Soundpad connection. The connector will retry. {ExceptionType}: {ExceptionMessage}", e.Exception.GetType().Name, e.Exception.Message);
+        };
 
         // Note that the API is asynchronous. Make sure that Soundpad is connected before executing commands.
-        Soundpad.ConnectAsync();
+        PluginLogger.Information(nameof(SoundPadManager), "Starting connection to the local Soundpad Remote Control named pipe.");
+        _ = MonitorInitialConnectionAsync(Soundpad);
+        _ = Soundpad.ConnectAsync();
     }
 
     private static void OnStatusChanged(object sender, EventArgs e)
     {
+        if (_lastStatus.HasValue && Soundpad.ConnectionStatus == _lastStatus.Value)
+        {
+            return;
+        }
+        _lastStatus = Soundpad.ConnectionStatus;
+        PluginLogger.Information(nameof(SoundPadManager), "Soundpad connection status changed to {ConnectionStatus}.", Soundpad.ConnectionStatus);
         SoundPadPlugin.UpdateContentButton();
+    }
+
+    private static void OnConnected(object sender, EventArgs e)
+    {
+        PluginLogger.Information(nameof(SoundPadManager), "Connected to Soundpad Remote Control.");
+        DoPoll();
+    }
+
+    private static async Task MonitorInitialConnectionAsync(Soundpad soundpad)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds((soundpad.ConnectionTimeout + soundpad.ReconnectInterval) * 5));
+
+        if (ReferenceEquals(Soundpad, soundpad) && soundpad.ConnectionStatus != ConnectionStatus.Connected)
+        {
+            PluginLogger.Warning(nameof(SoundPadManager), "Soundpad has not accepted a Remote Control connection after {TimeoutSeconds} seconds. Ensure Soundpad is running, Remote Control is enabled in its settings, and this is not an unsupported demo version.", 5);
+        }
     }
 
     public static void Play(string config)
@@ -140,9 +175,9 @@ public static class SoundPadManager
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
-                //do nothing.
+                PluginLogger.Debug(nameof(SoundPadManager), "Soundpad status poll failed. {ExceptionType}: {ExceptionMessage}", ex.GetType().Name, ex.Message);
             }
             await Task.Delay(Soundpad.PollingInterval);
         }
